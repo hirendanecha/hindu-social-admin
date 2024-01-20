@@ -1,0 +1,69 @@
+<!-- <div class="bg-light d-flex flex-row align-items-center">
+  <c-container>
+    <c-row class="justify-content-center">
+      <c-col md="8">
+        <span class="clearfix">
+          <h1 class="float-start display-3 me-4">Community</h1>
+          <h4 class="pt-3">The page will appear soon</h4>
+          <p class="text-medium-emphasis float-start">
+            The page you are looking for is temporarily unavailable.
+          </p>
+        </span>
+      </c-col>
+    </c-row>
+  </c-container>
+</div> -->
+<!-- <c-toaster [placement]="position" class="p-3" position="fixed">
+  <c-toast
+    (timer)="onTimerChange($event)"
+    (visibleChange)="onVisibleChange($event)"
+    [visible]="visible"
+    class="text-bg-{{ type }}"
+  >
+    <c-toast-header>
+      <toast-sample-icon></toast-sample-icon>
+    </c-toast-header>
+    <c-toast-body>
+      <p class="text-white">{{ resMessage }}</p>
+      <c-progress thin>
+        <c-progress-bar [value]="percentage"></c-progress-bar>
+      </c-progress>
+    </c-toast-body>
+  </c-toast>
+</c-toaster> -->
+<c-modal
+  id="liveDemoModal"
+  [visible]="true"
+  [keyboard]="false"
+  [transition]="false"
+  backdrop="static"
+  alignment="center"
+>
+  <c-modal-header>
+    <h5 cModalTitle>Delete {{ title }}</h5>
+    <button (click)="activateModal.close()" cButtonClose></button>
+  </c-modal-header>
+  <c-modal-body>
+    <c-row class="justify-content-center">
+      <strong>{{ message }}</strong>
+    </c-row>
+  </c-modal-body>
+  <c-modal-footer>
+    <button
+      class="text-white"
+      (click)="activateModal.close('cancel')"
+      cButton
+      color="secondary"
+    >
+      No
+    </button>
+    <button
+      cButton
+      color="danger"
+      class="text-white"
+      (click)="activateModal.close('success')"
+    >
+      Delete
+    </button>
+  </c-modal-footer>
+</c-modal>

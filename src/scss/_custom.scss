@@ -1,0 +1,7 @@
+// Here you can add other styles
+
+@for $i from 1 through 50 {
+  .w-#{$i*4}-px {
+    width: #{$i * 4}px;
+  }
+}

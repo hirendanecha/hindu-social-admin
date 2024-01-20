@@ -1,0 +1,13 @@
+::ng-deep {
+  .app-pagination {
+    c-pagination ul {
+      margin-bottom: 0px;
+
+      .page-item {
+        .page-link {
+          min-width: 38px;
+        }
+      }
+    }
+  }
+}

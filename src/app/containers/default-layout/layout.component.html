@@ -1,0 +1,62 @@
+<!--sidebar-->
+<c-sidebar
+  #sidebar="cSidebar"
+  class="d-print-none sidebar sidebar-fixed"
+  id="sidebar"
+  visible
+>
+  <c-sidebar-brand
+    [brandFull]="{
+      src: '/assets/images/logo_new.png',
+      width: 200,
+      height: 46,
+      alt: 'CoreUI Logo'
+    }"
+    [brandNarrow]="{
+      src: 'assets/img/brand/coreui-signet-white.svg',
+      width: 46,
+      height: 46,
+      alt: 'CoreUI Logo'
+    }"
+    routerLink="/dashboard"
+  />
+
+  <ng-scrollbar pointerEventsMethod="scrollbar">
+    <c-sidebar-nav [navItems]="navItems" dropdownMode="close" />
+  </ng-scrollbar>
+  <c-sidebar-toggler *ngIf="!sidebar.narrow" cSidebarToggle="sidebar" />
+  <!-- toggle="unfoldable" -->
+</c-sidebar>
+
+<!--main-->
+<div
+  class="wrapper d-flex flex-column min-vh-100 bg-light dark:bg-transparent overflow-hidden"
+>
+  <!--app-header-->
+  <app-header
+    class="mb-4 d-print-none header header-sticky"
+    position="sticky"
+    sidebarId="sidebar"
+  />
+  <!--app-body-->
+  <div class="body flex-grow-1 px-3 bg-light flex-row align-items-center">
+    <router-outlet />
+    <!-- <c-container breakpoint="lg" class="h-auto">
+    </c-container> -->
+  </div>
+  <!--app footer-->
+  <app-footer />
+</div>
+<app-toaster />
+<ngx-spinner
+  [fullScreen]="false"
+  bdColor="rgba(0, 0, 0, 0.5)"
+  size="medium"
+  color="#fff"
+  [fullScreen]="true"
+  type="ball-spin-clockwise"
+>
+  <div class="d-flex align-items-center">
+    <p class="mb-0 ms-2 text-white">Loading...</p>
+  </div>
+</ngx-spinner>

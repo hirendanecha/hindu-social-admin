@@ -1,0 +1,96 @@
+<div class="bg-light flex-row align-items-center min-vh-100">
+  <c-container>
+    <c-row class="justify-content-center">
+      <!-- <c-col md="1">
+      </c-col> -->
+      <c-col md="8">
+        <c-card class="p-3 post-card">
+          <div class="d-flex align-items-start">
+            <c-col md="1">
+              <img
+                class="avatar-img"
+                [src]="postDetails?.ProfilePicName"
+                onerror="this.onerror=null;this.src='/assets/img/avatars/placeholder-user.png';"
+              />
+            </c-col>
+            <c-col>
+              <div>
+                <p class="mb-0" *ngIf="postDetails?.Username">
+                  @{{ postDetails?.Username | lowercase }}
+                </p>
+              </div>
+              <div class="mt-3">
+                <p
+                  class="post-description"
+                  [innerHTML]="postDetails?.description"
+                ></p>
+                <a
+                  *ngIf="postDetails.metalink"
+                  [href]="postDetails.metalink"
+                  target="_blank"
+                  class="post-description"
+                  >{{ postDetails?.metalink }}</a
+                >
+                <div *ngIf="postDetails?.imageUrl">
+                  <img class="img-post" [src]="postDetails?.imageUrl" alt="" />
+                </div>
+                <div class="like-section border-top border-bottom">
+                  <ul
+                    class="ps-0 d-flex align-items-center justify-content-around mb-0 w-100"
+                  >
+                    <!-- <li *ngIf="postDetails.likescount > 0">
+                      <img src="assets/images/avatar-2.png" alt="image" />
+                    </li> -->
+                    <li>
+                      <!-- <svg cIcon name="cilThumbUp"></svg> -->
+                      <i class="material-symbols-outlined">
+                        thumb_up
+                        </i>
+                      <span class="mdtxt d-center ms-1">{{
+                        postDetails?.likescount > 0 ? postDetails?.likescount : 0
+                      }}</span>
+                    </li>
+                    <li>
+                      <!-- <svg cIcon name="cilHeart"></svg> -->
+                      <i class="material-symbols-outlined">
+                        favorite
+                        </i>
+                      <span class="mdtxt d-center ms-1">{{
+                        postDetails?.lovecount > 0 ? postDetails?.lovecount : 0
+                      }}</span>
+                    </li>
+                    <li>
+                      <svg cIcon name="cilMoodVeryGood"></svg>
+                      <span class="mdtxt d-center ms-1">{{
+                        postDetails?.haliriouscount > 0
+                          ? postDetails?.haliriouscount
+                          : 0
+                      }}</span>
+                    </li>
+                    <li>
+                      <svg cIcon name="cilStar"></svg>
+                      <span class="mdtxt d-center ms-1">{{
+                        postDetails?.wowcount > 0 ? postDetails?.wowcount : 0
+                      }}</span>
+                    </li>
+                    <li>
+                      <!-- <svg cIcon name="cilThumbDown"></svg> -->
+                      <i class="material-symbols-outlined">
+                        thumb_down
+                        </i>
+                      <span class="mdtxt d-center ms-1">{{
+                        postDetails?.dislikecount > 0
+                          ? postDetails?.dislikecount
+                          : 0
+                      }}</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </c-col>
+          </div>
+        </c-card>
+      </c-col>
+    </c-row>
+  </c-container>
+</div>

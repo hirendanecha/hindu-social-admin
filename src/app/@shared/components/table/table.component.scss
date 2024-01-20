@@ -1,0 +1,11 @@
+::ng-deep {
+  .app-table .table {
+    tbody, tfoot {
+      tr:last-child {
+        td {
+          border: 0px !important;
+        }
+      }
+    }
+  }
+}

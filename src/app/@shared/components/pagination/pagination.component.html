@@ -1,0 +1,54 @@
+<ng-container *ngIf="config?.totalPages">
+  <c-row class="app-pagination pt-3" >
+    <c-col [xs]="6" class="d-flex align-items-center">
+      <select [formControl]="perPageCtrl" cSelect class="w-80-px">
+        <option value="15">15</option>
+        <option value="25">25</option>
+        <option value="50">50</option>
+        <option value="100">100</option>
+        <option value="200">200</option>
+        <option value="500">500</option>
+      </select>
+
+      <span class="ps-2 text-secondary">
+        Items per page, {{ ((config.activePage - 1) * config.perPage) || 1 }} – {{ config.activePage * config.perPage }} of {{ config.totalItems }} Items
+      </span>
+    </c-col>
+
+    <c-col [xs]="6" class="d-flex justify-content-end">
+      <c-pagination aria-label="Page pagination" [size]="size">
+        <li cPageItem [disabled]="config.activePage === 1">
+          <button cPageLink class="c-pointer" aria-label="First Page" (click)="pageChange(1)"> ‹‹ </button>
+        </li>
+        <li cPageItem [disabled]="config.activePage === 1">
+          <button cPageLink aria-label="Previous" (click)="pageChange(config.activePage - 1)"> ‹ </button>
+        </li>
+
+        <ng-container *ngIf="config.isStartEllipsesShow">
+          <li cPageItem [disabled]="true">
+            <button cPageLink>{{ "..." }}</button>
+          </li>
+        </ng-container>
+
+        <ng-container *ngFor="let page of config.pages">
+          <li cPageItem [active]="config.activePage === page">
+            <button cPageLink (click)="pageChange(page)">{{ page }}</button>
+          </li>
+        </ng-container>
+
+        <ng-container *ngIf="config.isEndEllipsesShow">
+          <li cPageItem [disabled]="true">
+            <button cPageLink>{{ "..." }}</button>
+          </li>
+        </ng-container>
+
+        <li cPageItem [disabled]="config.totalPages === config.activePage">
+          <button cPageLink aria-label="Next" (click)="pageChange(config.activePage + 1)"> › </button>
+        </li>
+        <li cPageItem [disabled]="config.totalPages === config.activePage">
+          <button cPageLink aria-label="Last Page" (click)="pageChange(config.totalPages)"> ›› </button>
+        </li>
+      </c-pagination>
+    </c-col>
+  </c-row>
+</ng-container>

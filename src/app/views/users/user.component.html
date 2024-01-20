@@ -1,0 +1,286 @@
+<c-card class="app-user mb-3">
+  <c-card-header class="d-flex align-items-center justify-content-between">
+    User
+    <div class="d-flex">
+      <div
+        class="d-flex filter-table-action btn btn-outline-secondary m-1"
+        [class.active]="currentView === 'list'"
+        (click)="showListView()"
+      >
+        <span class="material-symbols-outlined">list</span>
+      </div>
+      <div
+        class="d-flex filter-table-action btn btn-outline-secondary m-1"
+        [class.active]="currentView === 'table'"
+        (click)="showTableView()"
+      >
+        <span class="material-symbols-outlined">table_view</span>
+      </div>
+    </div>
+  </c-card-header>
+
+  <c-card-body>
+    <c-row class="pb-3">
+      <app-filter (searchClick)="onSearch()"></app-filter>
+    </c-row>
+    <ng-container
+      *ngIf="currentView === 'list'; then listView; else tableView"
+    ></ng-container>
+    <ng-template #listView>
+      <div class="c-rows">
+        <div
+          class="d-flex c-broder"
+          *ngFor="let user of userData; let i = index"
+        >
+          <div class="col-3 c-fix-width">
+            <img
+              [src]="user.ProfilePicName"
+              width="240"
+              height="240"
+              onerror="this.onerror=null;this.src='/assets/img/avatars/placeholder-user.png';"
+            />
+          </div>
+
+          <div class="d-flex flex-column col-6 c-text-area">
+            <div class="d-flex">
+              <h4>First name:</h4>
+              {{ user.FirstName || "-" }}
+            </div>
+            <div class="d-flex">
+              <h4>Last name:</h4>
+              {{ user.LastName || "-" }}
+            </div>
+            <div class="d-flex">
+              <h4>Username:</h4>
+              {{ user.Username || "-" }}
+            </div>
+            <div class="d-flex">
+              <h4>Profile Id:</h4>
+              {{ user.profileId || "-" }}
+            </div>
+            <div class="d-flex">
+              <h4>User Id:</h4>
+              {{ user.Id }}
+            </div>
+            <div class="d-flex">
+              <h4>Date Created:</h4>
+              {{ user.DateCreation | date : "d-MM-YYYY" }}
+            </div>
+            <div class="d-flex">
+              <h4>Email:</h4>
+              {{ user.Email || "-" }}
+            </div>
+            <div class="d-flex">
+              <h4>Phone:</h4>
+              {{ user.MobileNo || "-" }}
+            </div>
+          </div>
+          <div class="clo-4 d-flex flex-column c-list-btn">
+            <button
+              class="btn btn-sm text-white m-1 custom-btn-list"
+              [ngClass]="
+                user.IsSuspended === 'N' ? ' btn-danger' : 'btn-success'
+              "
+              (click)="
+                suspendUser(user.Id, user.IsSuspended === 'N' ? 'Y' : 'N')
+              "
+            >
+              {{ user.IsSuspended === "N" ? "Suspend" : "Re-active" }}
+            </button>
+            <button
+              class="btn btn-sm text-white m-1 custom-btn-list"
+              [ngClass]="
+                user.MediaApproved === 0 || user.MediaApproved === null
+                  ? 'btn-success'
+                  : 'btn-danger'
+              "
+              (click)="
+                changeMediaType(
+                  user.profileId,
+                  user.MediaApproved === 0 || user.MediaApproved === null
+                    ? 1
+                    : 0
+                )
+              "
+            >
+              {{
+                user.MediaApproved === 0 || user.MediaApproved === null
+                  ? "Activate Media"
+                  : "De-activate"
+              }}
+            </button>
+            <button
+              class="btn btn-sm btn-info text-white m-1 custom-btn-list"
+              (click)="openEditUserPopup(user.profileId)"
+            >
+              View Post
+            </button>
+
+            <button
+              class="btn btn-sm btn-info m-1 custom-btn-list text-white"
+              (click)="deleteAllData(user.profileId)"
+            >
+              Delete All Data
+            </button>
+            <button
+              class="btn btn-sm text-white m-1 custom-btn-list"
+              [ngClass]="user.IsActive === 'N' ? ' btn-danger' : 'btn-success'"
+              (click)="
+                activateAccount(user.Id, user.IsActive === 'N' ? 'Y' : 'N')
+              "
+            >
+              {{
+                user.IsActive === "N"
+                  ? "Non-activated account"
+                  : "Activated account"
+              }}
+            </button>
+          </div>
+        </div>
+      </div>
+    </ng-template>
+    <ng-template #tableView>
+      <app-table>
+        <thead cTableColor="light">
+          <tr class="text-center align-middle">
+            <th>Profile</th>
+            <th>User&nbsp;ID</th>
+            <!-- <th>ProfileId</th> -->
+            <th>Firstname</th>
+            <!-- <th>Lastname</th> -->
+            <th>Username</th>
+            <th>Email</th>
+            <!-- <th>AccountType</th> -->
+            <th>Phone</th>
+            <th>Date&nbsp;Creation</th>
+            <th>Country</th>
+            <th>State</th>
+            <th>Zip</th>
+            <!-- <th>Status</th> -->
+            <!-- <th>Suspended</th> -->
+            <th>Action</th>
+            <!-- <th>Activate Media</th> -->
+          </tr>
+        </thead>
+
+        <tbody>
+          <tr
+            class="text-center align-middle"
+            *ngFor="let user of userData; let i = index"
+          >
+            <td>
+              <img
+                class="avatar-img"
+                [src]="user.ProfilePicName"
+                onerror="this.onerror=null;this.src='/assets/img/avatars/placeholder-user.png';"
+              />
+            </td>
+            <td>
+              {{ user.Id }}
+            </td>
+            <!-- <td>
+            {{ user.profileId || "-" }}
+          </td> -->
+            <td>
+              {{ user.FirstName || "-" }}
+            </td>
+            <!-- <td>
+            {{ user.LastName || "-" }}
+          </td> -->
+
+            <td>{{ user.Username || "-" }}</td>
+            <td>
+              {{ user.Email || "-" }}
+            </td>
+            <td>
+              {{ user.MobileNo || "-" }}
+            </td>
+            <td>{{ user.DateCreation | date : "d-MM-YYYY" }}</td>
+            <td>
+              <svg
+                *ngIf="user.Country"
+                cIcon
+                id="{{ user.Country }}"
+                name="cif-{{ user?.Country || null | lowercase }}"
+                size="xl"
+                title="{{ user?.Country }}"
+              ></svg>
+              <span *ngIf="!user.Country">{{ "-" }}</span>
+            </td>
+            <td>{{ user.State || "-" }}</td>
+            <td>{{ user.Zip || "-" }}</td>
+            <td class="c-width">
+              <tr>
+                <button
+                  class="btn btn-sm text-white m-1 custom-btn"
+                  size="sm"
+                  [ngClass]="
+                    user.IsSuspended === 'N' ? ' btn-danger' : 'btn-success'
+                  "
+                  (click)="
+                    suspendUser(user.Id, user.IsSuspended === 'N' ? 'Y' : 'N')
+                  "
+                >
+                  {{ user.IsSuspended === "N" ? "Suspend" : "Re-active" }}
+                </button>
+                <button
+                  class="btn btn-sm text-white m-1 custom-btn"
+                  size="sm"
+                  [ngClass]="
+                    user.MediaApproved === 0 || user.MediaApproved === null
+                      ? 'btn-success'
+                      : 'btn-danger'
+                  "
+                  (click)="
+                    changeMediaType(
+                      user.profileId,
+                      user.MediaApproved === 0 || user.MediaApproved === null
+                        ? 1
+                        : 0
+                    )
+                  "
+                >
+                  {{
+                    user.MediaApproved === 0 || user.MediaApproved === null
+                      ? "Activate Media"
+                      : "De-activate"
+                  }}
+                </button>
+                <button
+                  class="btn btn-sm btn-info text-white m-1 custom-btn"
+                  size="sm"
+                  (click)="openEditUserPopup(user.profileId)"
+                >
+                  View Post
+                  <!-- <svg cIcon name="cilLowVision" size="md"></svg> -->
+                  <!-- <i class="material-symbols-outlined"> visibility </i> -->
+                </button>
+
+                <button
+                  class="btn btn-sm btn-info m-1 custom-btn text-white"
+                  size="sm"
+                  (click)="deleteAllData(user.profileId)"
+                >
+                  Delete All Data
+                  <!-- <svg cIcon name="cil-trash" size="md"></svg> -->
+                  <!-- <i class="material-symbols-outlined"> delete </i> -->
+                </button>
+              </tr>
+            </td>
+            <!-- <td>
+            
+          </td> -->
+          </tr>
+        </tbody>
+
+        <h6 *ngIf="!userData.length" class="text-center align-middle p-5 m-0">
+          No User available
+        </h6>
+      </app-table>
+    </ng-template>
+    <app-pagination
+      [items]="pagination?.totalItems"
+      (onPageChange)="onPageChange($event)"
+    />
+  </c-card-body>
+</c-card>

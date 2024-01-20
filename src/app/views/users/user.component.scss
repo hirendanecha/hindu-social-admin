@@ -1,0 +1,67 @@
+.app-user {
+  c-nav .nav-link {
+    border-radius: 0px;
+
+    &.active {
+      border-top: 3px solid #000;
+
+      &:first-child {
+        border-left: 1px solid transparent;
+      }
+    }
+  }
+}
+
+td {
+  cursor: pointer;
+  .avatar-img {
+    width: 2.5rem;
+    height: 2.5rem;
+  }
+}
+
+.filter-table-action {
+  cursor: pointer;
+}
+
+.custom-btn {
+  width: 105px;
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.c-width {
+  width: 275px;
+}
+
+.c-rows {
+  .c-fix-width {
+    min-width: 250px;
+  }
+  .c-broder {
+    border: 1px solid #e0e0e0;
+    border-radius: 7px;
+    overflow: auto;
+    margin: 15px 0;
+  }
+
+  .c-text-area {
+    padding: 10px 0;
+    min-width: 280px;
+    h4 {
+      font-size: 16px;
+      font-weight: 700;
+      color: #000;
+      padding-right: 8px;
+    }
+  }
+  .c-list-btn {
+    max-width: 300px;
+    min-width: 125px;
+    width: 100%;
+    align-self: center;
+    .custom-btn-list {
+      font-size: 15px;
+    }
+  }
+}

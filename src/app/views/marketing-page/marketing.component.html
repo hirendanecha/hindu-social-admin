@@ -1,0 +1,42 @@
+<c-card class="app-user mb-3">
+  <c-card-header class="d-flex align-items-center justify-content-between">
+    Marketing Page
+  </c-card-header>
+
+  <c-card-body>
+    <c-row class="pb-3 justify-content-between d-flex align-items-center">
+      <c-col md="10">
+        <app-filter
+          [class]="'justify-content-start'"
+          [showSearchInput]="shouldShowSearchInput"
+          (searchClick)="onSearch()"
+        ></app-filter>
+      </c-col>
+      <c-col md="2" class="text-end">
+        <!-- Download csv -->
+        <div class="filter-table-action btn btn-outline-secondary">
+          <span class="material-symbols-outlined" (click)="downloadCsv()"
+            >download</span
+          >
+        </div>
+      </c-col>
+    </c-row>
+    <app-table>
+      <thead cTableColor="light">
+        <tr class="text-start align-middle">
+          <th>No</th>
+          <th>Email</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          class="text-start align-middle"
+          *ngFor="let user of userData; let i = index"
+        >
+          <td>{{ i + 1 }}</td>
+          <td>{{ user.Email }}</td>
+        </tr>
+      </tbody>
+    </app-table>
+  </c-card-body>
+</c-card>

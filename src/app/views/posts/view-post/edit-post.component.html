@@ -1,0 +1,225 @@
+<div class="bg-light flex-row align-items-center min-vh-100">
+  <c-container>
+    <app-filter (searchClick)="onSearch()"></app-filter>
+    <c-row class="justify-content-center">
+      <!-- <c-col md="1">
+      </c-col> -->
+      <c-col md="7">
+        <c-card class="p-3 post-card">
+          <div class="d-flex align-items-start">
+            <c-col md="1">
+              <img
+                class="avatar-img"
+                [src]="postDetails?.ProfilePicName"
+                onerror="this.onerror=null;this.src='/assets/img/avatars/placeholder-user.png';"
+              />
+            </c-col>
+            <c-col>
+              <div>
+                <p class="mb-0" *ngIf="postDetails?.Username">
+                  @{{ postDetails?.Username | lowercase }}
+                </p>
+              </div>
+              <div class="mt-3">
+                <p
+                  class="post-description"
+                  [innerHTML]="postDetails?.postdescription"
+                ></p>
+                <a
+                  *ngIf="postDetails.metalink"
+                  [href]="postDetails.metalink"
+                  target="_blank"
+                  class="post-description"
+                  [innerHTML]="postDetails?.metalink"
+                ></a>
+                <div *ngIf="postDetails?.imageUrl">
+                  <img class="img-post" [src]="postDetails?.imageUrl" alt="" />
+                </div>
+                <div class="like-section border-top border-bottom mt-1">
+                  <ul
+                    class="ps-0 d-flex align-items-center justify-content-around mb-0 w-100"
+                  >
+                    <!-- <li *ngIf="postDetails.likescount > 0">
+                      <img src="assets/images/avatar-2.png" alt="image" />
+                    </li> -->
+                    <li class="d-flex align-items-center">
+                      <!-- <svg cIcon name="cilThumbUp"></svg> -->
+                      <i class="material-symbols-outlined">
+                        thumb_up
+                        </i>
+                      <span class="mdtxt d-center ms-1">{{
+                        postDetails.likescount > 0 ? postDetails.likescount : 0
+                      }}</span>
+                    </li>
+                    <li class="d-flex align-items-center" (click)="viewComments(postDetails.id)">
+                      <!-- <svg cIcon name="cilCommentBubble"></svg> -->
+                      <i class="material-symbols-outlined">
+                        chat
+                        </i>
+                      <span class="mdtxt d-center ms-1">Comments</span>
+                    </li>
+                  </ul>
+                </div>
+                <ng-container
+                  *ngIf="isExpand && isOpenCommentsPostId === postDetails.id"
+                >
+                  <ng-container
+                    *ngIf="commentList.length > 0; else elseNoCommentsFound"
+                  >
+                    <div class="comments-area mt-2">
+                      <div
+                        class="single-comment-area ms-xxl-15"
+                        *ngFor="let comment of commentList"
+                      >
+                        <div
+                          class="parent-comment d-flex gap-2 gap-sm-4"
+                          *ngIf="comment.postId === postDetails.id"
+                        >
+                          <div class="d-center align-items-baseline">
+                            <img
+                              loading="lazy"
+                              class="avatar-img rounded-3"
+                              [src]="comment?.ProfilePicName"
+                              onerror="this.onerror=null;this.src='/assets/img/avatars/placeholder-user.png';"
+                              alt="avatar"
+                            />
+                          </div>
+                          <div class="info-item w-100 pb-3">
+                            <div
+                              class="top-area d-flex flex-column align-items-start justify-content-start"
+                            >
+                              <div
+                                class="justify-content-between align-items-center w-100 comment-box"
+                              >
+                                <h6 class="m-0">{{ comment.Username }}</h6>
+                                <p
+                                  class="mdtxt mb-0 mt-1"
+                                  [innerHTML]="comment.comment"
+                                ></p>
+                                <img
+                                  *ngIf="comment.imageUrl"
+                                  class="h-48-px w-48-px"
+                                  loading="lazy"
+                                  [src]="comment.imageUrl"
+                                  alt=""
+                                />
+                              </div>
+
+                              <ul class="d-flex gap-6 py-2 px-4 m-0">
+                                <li class="d-center">
+                                  <i class="material-symbols-outlined" [ngClass]="{ active: comment.react == 'L' }">
+                                    thumb_up
+                                    </i>
+                                  <!-- <svg
+                                    cIcon
+                                    name="cilThumbUp"
+                                    [ngClass]="{ active: comment.react == 'L' }"
+                                  ></svg> -->
+                                  {{
+                                    comment?.likeCount > 0
+                                      ? comment?.likeCount
+                                      : 0
+                                  }}
+                                  <!-- Likes -->
+                                </li>
+                              </ul>
+                              <ng-container
+                                *ngIf="comment?.replyCommnetsList?.length"
+                              >
+                                <div
+                                  *ngFor="
+                                    let reply of comment?.replyCommnetsList
+                                  "
+                                  class="w-100"
+                                >
+                                  <div
+                                    *ngIf="
+                                      reply.parentCommentId === comment.id &&
+                                      reply.postId === postDetails.id
+                                    "
+                                    class="d-flex"
+                                  >
+                                    <div class="">
+                                      <img
+                                        class="avatar-img rounded-3"
+                                        loading="lazy"
+                                        [src]="reply.ProfilePicName"
+                                        onerror="this.onerror=null;this.src='/assets/img/avatars/placeholder-user.png';"
+                                        alt="avatar"
+                                      />
+                                    </div>
+                                    <div class="w-100 ms-1">
+                                      <div
+                                        class="pt-1 pb-1 ps-3 gap-3 comment-box"
+                                      >
+                                        <div class="">
+                                          <h6 class="m-0 mb-3">
+                                            <a>{{ reply?.Username }}</a>
+                                          </h6>
+                                          <p
+                                            class="mdtxt mb-0"
+                                            [innerHTML]="reply?.comment"
+                                          ></p>
+                                          <img
+                                            *ngIf="reply.imageUrl"
+                                            class="h-52-px w-52-px rounded-0 mt-1"
+                                            [src]="reply.imageUrl"
+                                            alt=""
+                                          />
+                                        </div>
+                                      </div>
+                                      <ul class="d-flex gap-6 mt-2">
+                                        <li class="d-center">
+                                          <!-- <i
+                                            class="material-symbols-outlined mat-icon"
+                                            [ngClass]="
+                                              reply.react === 'L'
+                                                ? 'active'
+                                                : ''
+                                            "
+                                          >
+                                            thumb_up
+                                          </i> -->
+                                          <i class="material-symbols-outlined" [ngClass]="{
+                                            active: comment.react == 'L'
+                                          }">
+                                            thumb_up
+                                            </i>
+                                          <!-- <svg
+                                            cIcon
+                                            name="cilThumbUp"
+                                            [ngClass]="{
+                                              active: comment.react == 'L'
+                                            }"
+                                          ></svg> -->
+                                          <span class="ms-1 text-center">{{
+                                            reply?.likeCount > 0
+                                              ? reply?.likeCount
+                                              : 0
+                                          }}</span>
+                                        </li>
+                                      </ul>
+                                    </div>
+                                  </div>
+                                </div>
+                              </ng-container>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </ng-container>
+                  <ng-template #elseNoCommentsFound>
+                    <span class="pt-5 m-0 text-start text-secondary"
+                      >No comments yet!</span
+                    >
+                  </ng-template>
+                </ng-container>
+              </div>
+            </c-col>
+          </div>
+        </c-card>
+      </c-col>
+    </c-row>
+  </c-container>
+</div>

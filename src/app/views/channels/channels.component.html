@@ -1,0 +1,84 @@
+<c-card class="app-channels mb-3">
+  <c-card-header>FT Channels</c-card-header>
+  <c-card-body>
+    <c-row class="pb-3">
+      <app-filter (searchClick)="onSearch()"></app-filter>
+      <div class="d-flex justify-content-end">
+        <button class="d-flex btn btn-sm btn-success text-white" (click)="createChannel()">
+          <i class="material-symbols-outlined text-white"> add </i>
+          Create Channel
+        </button>
+      </div>
+    </c-row>
+
+    <app-table>
+      <thead cTableColor="light">
+        <tr class="text-center align-middle">
+          <th class="text-center">No</th>
+          <th>Logo</th>
+          <th>Channel Name</th>
+          <th>Link</th>
+          <th>Username</th>
+          <th>User Profile</th>
+          <th>DateCreation</th>
+          <th>Feature</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let channel of channelList; let i = index">
+          <tr class="text-center align-middle" *ngIf="channel.id">
+            <td>
+              {{ i + 1 }}
+            </td>
+            <td>
+              <img class="avatar-img" [src]="channel.profile_pic_name" onerror="this.onerror=null;
+                  this.src='assets/img/avatars/placeholder-user.png';" />
+            </td>
+            <td>{{ channel.firstname || channel.unique_link}}</td>
+            <td class="c-width">
+              <a *ngIf="channel.unique_link" [href]="
+                    'https://video.healing.tube/channel/' +
+                    channel.unique_link
+                  " target="_blank">{{
+                "https://video.healing.tube/channel/" +
+                channel.unique_link
+                }}</a>
+            </td>
+            <td class="c-width">
+              {{ channel.Username || channel.FirstName }}
+            </td>
+            <td>
+              <img class="avatar-img" [src]="channel.ProfilePicName" onerror="this.onerror=null;
+                  this.src='assets/img/avatars/placeholder-user.png';" />
+            </td>
+            <td>{{ channel.created | date : "d-MM-YYYY" }}</td>
+            <td>
+              <button class="btn btn-sm btn-success text-white c-btn" *ngIf="channel.feature === 'N'"
+                (click)="changeChannelStatus(channel, 'Y')">
+                Yes
+              </button>
+              <button class="btn btn-sm btn-danger text-white c-btn" *ngIf="channel.feature === 'Y'"
+                (click)="changeChannelStatus(channel, 'N')">
+                No
+              </button>
+            </td>
+            <td>
+              <button class="bg-transparent border-0" size="sm" (click)="openChannel(channel.id)">
+                <i class="material-symbols-outlined"> edit </i>
+              </button>
+              <button class="bg-transparent border-0" size="sm" (click)="deleteChannel(channel.id)">
+                <i class="material-symbols-outlined"> delete </i>
+              </button>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+
+      <h6 *ngIf="!channelList.length" class="text-center p-5 m-0">
+        No Chennel available
+      </h6>
+    </app-table>
+    <app-pagination [items]="pagination?.totalItems" (onPageChange)="onPageChange($event)" />
+  </c-card-body>
+</c-card>

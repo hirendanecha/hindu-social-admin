@@ -1,0 +1,117 @@
+<c-card class="app-community mb-3">
+  <c-card-header>Healing Topics</c-card-header>
+  <c-card-body>
+    <c-row class="pb-3">
+      <!-- <c-col xs="3">
+        <input
+          cFormControl
+          placeholder="Search..."
+          name="search"
+          [formControl]="searchCtrl"
+        />
+      </c-col> -->
+      <app-filter (searchClick)="onSearch()"></app-filter>
+    </c-row>
+
+    <app-table>
+      <thead cTableColor="light">
+        <tr class="text-center">
+          <th class="text-center">No</th>
+          <th>Logo</th>
+          <th>Topic Name</th>
+          <th>Link</th>
+          <th>Description</th>
+          <th>DateCreation</th>
+          <th>Country</th>
+          <th>State</th>
+          <th>Zip</th>
+          <th>Status</th>
+          <th>Members</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let page of pageList; let i = index">
+          <tr class="text-center align-middle" *ngIf="page.Id">
+            <td>
+              {{ i + 1 }}
+            </td>
+            <td>
+              <img
+                class="avatar-img"
+                [src]="page.logoImg"
+                onerror="this.onerror=null;this.src='/assets/img/avatars/placeholder-user.png';"
+              />
+            </td>
+            <td>{{ page.CommunityName }}</td>
+            <td class="c-width">
+              <a
+                [href]="'https://healing.tube/pages/' + page.slug"
+                target="_blank"
+                >{{ "https://healing.tube/pages/" + page.slug }}</a
+              >
+            </td>
+            <td class="c-width">
+              {{ page.CommunityDescription }}
+            </td>
+            <td>{{ page.creationDate | date : "d-MM-YYYY" }}</td>
+            <td>
+              <!-- {{ page.Country || '-' }} -->
+              <svg
+                *ngIf="page.Country"
+                cIcon
+                id="{{ page.Country }}"
+                name="cif-{{ page?.Country || null | lowercase }}"
+                size="xl"
+                title="{{ page?.Country }}"
+              ></svg>
+              <span *ngIf="!page.Country">{{ "-" }}</span>
+            </td>
+            <td>{{ page.State || "-" }}</td>
+            <td>{{ page.Zip || "-" }}</td>
+            <td>
+              <button
+                class="btn btn-sm btn-success text-white c-btn"
+                *ngIf="page.isApprove === 'N'"
+                (click)="changeCommunityStatus(page, 'Y')"
+              >
+                Approve
+              </button>
+              <button
+                class="btn btn-sm btn-danger text-white c-btn"
+                *ngIf="page.isApprove === 'Y'"
+                (click)="changeCommunityStatus(page, 'N')"
+              >
+                UnApprove
+              </button>
+            </td>
+            <td>{{ page?.members }}</td>
+            <td>
+              <button
+                class="bg-transparent border-0"
+                size="sm"
+                (click)="openCommunity(page.Id)"
+              >
+                <i class="material-symbols-outlined"> edit </i>
+              </button>
+              <button
+                class="bg-transparent border-0"
+                size="sm"
+                (click)="deleteCommunity(page.Id)"
+              >
+                <!-- <svg cIcon name="cil-trash" size="md"></svg> -->
+                <i class="material-symbols-outlined"> delete </i>
+              </button>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+
+      <h6 *ngIf="!pageList.length" class="text-center p-5 m-0">
+        No Community available
+      </h6>
+    </app-table>
+    <app-pagination
+      [items]="pagination?.totalItems"
+      (onPageChange)="onPageChange($event)" /></c-card-body
+></c-card>
