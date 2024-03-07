@@ -61,7 +61,7 @@ export class LoginComponent {
       next: (data: any) => {
         if (data) {
           this.tokenStorage.saveToken(data?.accessToken);
-          this.tokenStorage.saveUser(data.user);
+          // this.tokenStorage.saveUser(data.user);
           window.sessionStorage['user_id'] = data.user.Id;
           window.sessionStorage['user_country'] = data.user.Country;
           window.sessionStorage['user_zip'] = data.user.Zip;
