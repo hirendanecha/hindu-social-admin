@@ -1,5 +1,11 @@
 <div class="bg-light flex-row align-items-center edit-content">
   <c-container>
+    <form
+    #form="ngForm"
+    (ngSubmit)="saveChanges()"
+    (change)="onChangeData()"
+    novalidate
+    >
     <c-row class="justify-content-center">
       <c-row class="justify-content-center mt-2">
         <c-col md="6" class="d-grid">
@@ -27,24 +33,23 @@
           name="uname"
           [(ngModel)]="channelDetails.firstname"
           type="text"
-          disabled
-        />
-      </c-col>
-      <c-col md="6">
-        <label>Unique Name</label>
-        <input
+          required
+          (keyup)="onChannelNameChange()"
+          />
+          <!-- disabled -->
+        </c-col>
+        <c-col md="6">
+          <label>Unique Name</label>
+          <input
           cFormControl
           name="uname"
           [(ngModel)]="channelDetails.unique_link"
           type="text"
-          disabled
-        />
+          required
+          />
+          <!-- disabled -->
       </c-col>
     </c-row>
-    <form
-      (ngSubmit)="saveChanges()"
-      (change)="onChangeData()"
-    >
       <!-- <c-row class="justify-content-center mt-2">
         <c-col md="6">
           <label>First Name</label>
@@ -97,7 +102,10 @@
             bindValue="Id"
             [multiple]="true"
             placeholder="Select user"
+            [clearOnBackspace]="true"
             (search)="onItemSelect($event)"
+            (clear)="resetSelect($event)"
+            (remove)="resetSelect($event)"
           >
             <ng-template ng-option-tmp let-item="item" let-index="index">
               <div (click)="onSelectUser(item)">
@@ -147,7 +155,7 @@
         </c-col>
       </c-row>
       <c-row class="float-end mt-3">
-        <button cButton color="primary" type="submit">
+        <button cButton color="primary" type="submit" [disabled]="!channelDetails.unique_link || !channelDetails.firstname">
           {{ isEdit ? "Save changes" : "Edit" }}
         </button>
       </c-row>
