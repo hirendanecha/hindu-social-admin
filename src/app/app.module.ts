@@ -16,12 +16,14 @@ import { AppRoutingModule } from './app-routing.module';
 // Import app component
 import { AppComponent } from './app.component';
 import { IconSetService } from '@coreui/icons-angular';
-import { HttpClientModule } from '@angular/common/http';
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { LoginModule } from './views/login/login.module';
 import { FooterComponent } from './containers/default-layout/footer/footer.component';
 import { HeaderComponent } from './containers/default-layout/header/header.component';
 import { LayoutComponent } from './containers/default-layout/layout.component';
 import { SharedModule } from './@shared/shared.module';
+import { AuthInterceptor } from './@shared/intersaptor/auth.interceptor';
+import { AuthenticationGuard } from './@shared/guards/authentication.guard';
 
 // const APP_CONTAINERS = [
 
@@ -49,8 +51,14 @@ import { SharedModule } from './@shared/shared.module';
     //   provide: LocationStrategy,
     //   useClass: HashLocationStrategy
     // },
+    AuthenticationGuard,
     IconSetService,
     Title,
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],

@@ -28,7 +28,7 @@ export class AppComponent implements OnInit {
     this.router.events.subscribe((evt) => {
       if (!(evt instanceof NavigationEnd)) {
         return;
-      } else if (!this.tokenStorageService.getUser()) {
+      } else if (!this.tokenStorageService.getToken()) {
         this.router.navigateByUrl('/login');
         return;
       }
