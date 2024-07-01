@@ -1,40 +1,57 @@
 <div class="bg-light flex-row align-items-center edit-content">
   <c-container>
     <form
-    #form="ngForm"
-    (ngSubmit)="saveChanges()"
-    (change)="onChangeData()"
-    novalidate
+      #form="ngForm"
+      (ngSubmit)="upload()"
+      (change)="onChangeData()"
+      novalidate
     >
-    <c-row class="justify-content-center">
-      <c-row class="justify-content-center mt-2">
-        <c-col md="6" class="d-grid">
-          <label>Channel Logo</label>
-          <img
-            height="100" width="100"
-            class="rounded-circle"
-            [src]="channelDetails.profile_pic_name"
-            onerror="this.onerror=null;this.src='/assets/img/avatars/placeholder-user.png';"
-          />
-        </c-col>
-        <c-col md="6" class="d-grid">
-          <!-- <label>User Profile</label>
+      <c-row class="justify-content-center">
+        <c-row class="justify-content-center mt-2">
+          <c-col class="d-flex flex-column">
+            <label>Channel logo</label>
+            <div class="d-flex c-size-icon position-relative set-select" *ngIf="!selectedFile">
+              <img
+              (click)="uploadImage.click()"
+              height="100"
+              width="100"
+              class="rounded-circle cursor"
+              [src]="channelDetails.profile_pic_name"
+              onerror="this.onerror=null;this.src='/assets/img/avatars/placeholder-user.png';"
+            />
+            <i class="material-symbols-outlined position-absolute"> edit </i>
+              <input #uploadImage class="d-none" type="file" id="fileInput" (change)="onFileSelected($event)"
+                accept="image/*" formControlName="profile_pic_name" />
+            </div>
+            <ng-container *ngIf="selectedFile">
+              <div class="position-relative w-100-px h-100-px">
+                <span class="material-symbols-outlined position-absolute start-100 rounded-1 text-white bg-danger cursor"
+                  (click)="removePostSelectedFile()">
+                  close
+                </span>
+                  <img loading="lazy" data-src="{{ selectedFile }}" height="100" width="100"
+                    class="rounded-circle mt-2" alt="icon" onerror="this.onerror=null;" />
+              </div>
+            </ng-container>
+          </c-col>
+          <c-col md="6" class="d-grid">
+            <!-- <label>User Profile</label>
           <img
             height="200" width="400"
             [src]="memberDetails.ProfilePicName"
             onerror="this.onerror=null;this.src='/assets/img/avatars/placeholder-room.png';"
           /> -->
-        </c-col>
-      </c-row>
-      <c-col md="6">
-        <label>Channel Name</label>
-        <input
-          cFormControl
-          name="uname"
-          [(ngModel)]="channelDetails.firstname"
-          type="text"
-          required
-          (keyup)="onChannelNameChange()"
+          </c-col>
+        </c-row>
+        <c-col md="6">
+          <label>Channel Name</label>
+          <input
+            cFormControl
+            [(ngModel)]="channelDetails.firstname"
+            type="text"
+            required
+            (keyup)="onChannelNameChange()"
+            [ngModelOptions]="{ standalone: true }"
           />
           <!-- disabled -->
         </c-col>
@@ -46,10 +63,11 @@
           [(ngModel)]="channelDetails.unique_link"
           type="text"
           required
-          />
+          [ngModelOptions]="{ standalone: true }"
+        />
           <!-- disabled -->
-      </c-col>
-    </c-row>
+        </c-col>
+      </c-row>
       <!-- <c-row class="justify-content-center mt-2">
         <c-col md="6">
           <label>First Name</label>
@@ -71,15 +89,19 @@
         </c-col>
       </c-row> -->
       <c-row class="justify-content-center mt-2">
+        <h5 class="mt-4">User Details:</h5>
         <c-col md="6">
           <label>Username</label>
           <input
-          cFormControl
-          name="userName"
-          [(ngModel)]="channelDetails.userName"
-          type="text"
-          disabled
-          />
+            cFormControl
+            name="Username"
+            [(ngModel)]="channelDetails.Username"
+            type="text"
+            (keyup)="onChangeTag($event)"
+            [ngModelOptions]="{ standalone: true }"
+            disabled
+            />
+            <!-- required -->
         </c-col>
         <c-col md="6">
           <label>Email</label>
@@ -98,7 +120,7 @@
           <label for="">Make Channel Admin</label>
           <ng-select
             [items]="userList"
-            bindLabel="userName"
+            bindLabel="Username"
             bindValue="Id"
             [multiple]="true"
             placeholder="Select user"
@@ -116,7 +138,7 @@
                   class="me-1"
                   onerror="this.onerror=null;this.src='/assets/img/avatars/placeholder-user.png';"
                 />
-                <span>{{ item.userName }}</span>
+                <span>{{ item.Username }}</span>
               </div>
             </ng-template>
           </ng-select>
@@ -126,7 +148,10 @@
         <c-col md="12">
           <label for="">Admins</label>
           <div class="d-flex flex-wrap">
-            <div class="single-box d-flex align-items-center gap-2 px-3 py-2 w-100" *ngFor="let member of adminList">      
+            <div
+              class="single-box d-flex align-items-center gap-2 px-3 py-2 w-100"
+              *ngFor="let member of adminList"
+            >
               <img
                 class="w-48-px h-48-px rounded-4"
                 loading="lazy"
@@ -140,22 +165,34 @@
               <div
                 class="d-flex flex-column justify-content-center align-items-start w-100"
               >
-                <p class="mb-1">{{ member?.userName }}</p>
+                <p class="mb-1">{{ member?.Username }}</p>
                 <span class="font-12-px description">{{
                   member?.isAdmin === "Y" ? "Admin" : "Member"
                 }}</span>
               </div>
-              <ng-container *ngIf="channelDetails.profileid !== member.profileId">
-                <span class="material-symbols-outlined" (click)="removeasAdmin(member.profileId)">
+              <ng-container
+                *ngIf="channelDetails.profileid !== member.profileId"
+              >
+                <span
+                  class="material-symbols-outlined"
+                  (click)="removeasAdmin(member.profileId)"
+                >
                   cancel
-                </span> 
+                </span>
               </ng-container>
             </div>
           </div>
         </c-col>
       </c-row>
       <c-row class="float-end mt-3">
-        <button cButton color="primary" type="submit" [disabled]="!channelDetails.unique_link || !channelDetails.firstname">
+        <button
+          cButton
+          color="primary"
+          type="submit"
+          [disabled]="
+            !channelDetails.unique_link ||
+            !channelDetails.firstname"
+        >
           {{ isEdit ? "Save changes" : "Edit" }}
         </button>
       </c-row>

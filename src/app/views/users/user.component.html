@@ -52,7 +52,7 @@
             </div> -->
             <div class="d-flex">
               <h4>Username:</h4>
-              {{ user.userName || "-" }}
+              {{ user.Username || "-" }}
             </div>
             <div class="d-flex">
               <h4>Profile Id:</h4>
@@ -60,15 +60,15 @@
             </div>
             <div class="d-flex">
               <h4>User Id:</h4>
-              {{ user.userId }}
+              {{ user.Id }}
             </div>
             <div class="d-flex">
               <h4>Date Created:</h4>
-              {{ user.createdDate | date : "d-MM-YYYY" }}
+              {{ user.DateCreation | date : "d-MM-YYYY" }}
             </div>
             <div class="d-flex">
-              <h4>Gender:</h4>
-              {{ user.gender || "-" }}
+              <h4>Email:</h4>
+              {{ user.Email || "-" }}
             </div>
             <!-- <div class="d-flex">
               <h4>Phone:</h4>

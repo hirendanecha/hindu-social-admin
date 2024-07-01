@@ -55,25 +55,44 @@ export class ChannelService {
     return this.http.get(`${this.baseUrl}/${id}`);
   }
 
-  upload(file: File, id: any, defaultType: string): Observable<HttpEvent<any>> {
+  // upload(file: File, id: any, defaultType: string): Observable<HttpEvent<any>> {
+  //   const formData: FormData = new FormData();
+  //   formData.append('folder', defaultType);
+  //   formData.append('file', file);
+  //   formData.append('id', id);
+  //   formData.append('default', defaultType);
+
+  //   const req = new HttpRequest(
+  //     'POST',
+  //     `${environment.serverUrl}utils/upload`,
+  //     formData,
+  //     {
+  //       reportProgress: true,
+  //       responseType: 'json',
+  //     }
+  //   );
+
+  //   return this.http.request(req);
+  // }
+  upload(
+    files: File,
+  ): Observable<HttpEvent<any>> {
+    const url = environment.serverUrl
     const formData: FormData = new FormData();
-    formData.append('folder', defaultType);
-    formData.append('file', file);
-    formData.append('id', id);
-    formData.append('default', defaultType);
-
-    const req = new HttpRequest(
-      'POST',
-      `${environment.serverUrl}utils/upload`,
-      formData,
-      {
-        reportProgress: true,
-        responseType: 'json',
-      }
-    );
-
+    formData.append('file', files);
+    const req =
+      new HttpRequest(
+        'POST',
+        `${url}utils/image-upload`,
+        formData,
+        {
+          reportProgress: true,
+          responseType: 'json',
+        }
+      );
     return this.http.request(req);
   }
+  
   editChannal(id: number, data: any): Observable<any> {
     return this.http.put<any>(
       `${this.baseUrl}/edit-channel/${id}`, data
