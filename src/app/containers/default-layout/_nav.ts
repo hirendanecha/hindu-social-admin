@@ -45,4 +45,9 @@ export const navItems: INavData[] = [
     url: '/channels',
     iconComponent: { name: 'cil-screen-desktop' },
   },
+  {
+    name: 'Support ticket page',
+    url: '/report-bugs',
+    iconComponent: { name: 'cil-list' },
+  },
 ];

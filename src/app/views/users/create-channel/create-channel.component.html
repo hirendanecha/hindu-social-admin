@@ -45,13 +45,13 @@
       <!-- [multiple]="true" -->
       <c-col md="12">
         <label for="">Channel Admin</label>
-        <ng-select [items]="userList" bindLabel="Username" bindValue="Id" placeholder="Select user"
+        <ng-select [items]="userList" bindLabel="userName" bindValue="Id" placeholder="Select user"
           (search)="onItemSelect($event)">
           <ng-template ng-option-tmp let-item="item" let-index="index">
             <div (click)="onSelectUser(item)">
-              <img height="20" width="20" [src]="item.ProfilePicName" class="me-1"
+              <img height="20" width="20" [src]="item.profilePicName" class="me-1"
                 onerror="this.onerror=null;this.src='/assets/img/avatars/placeholder-user.png';" />
-              <span>{{ item.Username }}</span>
+              <span>{{ item.userName }}</span>
             </div>
           </ng-template>
         </ng-select>

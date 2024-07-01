@@ -34,7 +34,7 @@
         >
           <div class="col-3 c-fix-width">
             <img
-              [src]="user.ProfilePicName"
+              [src]="user.profilePicName"
               width="240"
               height="240"
               onerror="this.onerror=null;this.src='/assets/img/avatars/placeholder-user.png';"
@@ -42,17 +42,17 @@
           </div>
 
           <div class="d-flex flex-column col-6 c-text-area">
-            <div class="d-flex">
+            <!-- <div class="d-flex">
               <h4>First name:</h4>
               {{ user.FirstName || "-" }}
             </div>
             <div class="d-flex">
               <h4>Last name:</h4>
               {{ user.LastName || "-" }}
-            </div>
+            </div> -->
             <div class="d-flex">
               <h4>Username:</h4>
-              {{ user.Username || "-" }}
+              {{ user.userName || "-" }}
             </div>
             <div class="d-flex">
               <h4>Profile Id:</h4>
@@ -60,20 +60,20 @@
             </div>
             <div class="d-flex">
               <h4>User Id:</h4>
-              {{ user.Id }}
+              {{ user.userId }}
             </div>
             <div class="d-flex">
               <h4>Date Created:</h4>
-              {{ user.DateCreation | date : "d-MM-YYYY" }}
+              {{ user.createdDate | date : "d-MM-YYYY" }}
             </div>
             <div class="d-flex">
-              <h4>Email:</h4>
-              {{ user.Email || "-" }}
+              <h4>Gender:</h4>
+              {{ user.gender || "-" }}
             </div>
-            <div class="d-flex">
+            <!-- <div class="d-flex">
               <h4>Phone:</h4>
               {{ user.MobileNo || "-" }}
-            </div>
+            </div> -->
           </div>
           <div class="clo-4 d-flex flex-column c-list-btn">
             <button
@@ -171,7 +171,7 @@
             <td>
               <img
                 class="avatar-img"
-                [src]="user.ProfilePicName"
+                [src]="user.profilePicName"
                 onerror="this.onerror=null;this.src='/assets/img/avatars/placeholder-user.png';"
               />
             </td>
@@ -188,9 +188,9 @@
             {{ user.LastName || "-" }}
           </td> -->
 
-            <td>{{ user.Username || "-" }}</td>
+            <td>{{ user.userName || "-" }}</td>
             <td>
-              {{ user.Email || "-" }}
+              {{ user.email || "-" }}
             </td>
             <td>
               {{ user.MobileNo || "-" }}

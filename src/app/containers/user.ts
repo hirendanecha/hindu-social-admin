@@ -4,14 +4,14 @@ export class User {
   City: string;
   Country: string;
   DateCreation: string;
-  Email: string;
+  email: string;
   FirstName: string;
   Id: string;
   IsActive: string;
   IsAdmin: string;
   LastName: string;
   State: string;
-  Username: string;
+  userName: string;
   Zip: string;
   profileId: string;
   IsSuspended: string;

@@ -10,14 +10,14 @@
             <c-col md="1">
               <img
                 class="avatar-img"
-                [src]="postDetails?.ProfilePicName"
+                [src]="postDetails?.profilePicName"
                 onerror="this.onerror=null;this.src='/assets/img/avatars/placeholder-user.png';"
               />
             </c-col>
             <c-col>
               <div>
-                <p class="mb-0" *ngIf="postDetails?.Username">
-                  @{{ postDetails?.Username | lowercase }}
+                <p class="mb-0" *ngIf="postDetails?.userName">
+                  @{{ postDetails?.userName | lowercase }}
                 </p>
               </div>
               <div class="mt-3">
@@ -79,7 +79,7 @@
                             <img
                               loading="lazy"
                               class="avatar-img rounded-3"
-                              [src]="comment?.ProfilePicName"
+                              [src]="comment?.profilePicName"
                               onerror="this.onerror=null;this.src='/assets/img/avatars/placeholder-user.png';"
                               alt="avatar"
                             />
@@ -91,7 +91,7 @@
                               <div
                                 class="justify-content-between align-items-center w-100 comment-box"
                               >
-                                <h6 class="m-0">{{ comment.Username }}</h6>
+                                <h6 class="m-0">{{ comment.userName }}</h6>
                                 <p
                                   class="mdtxt mb-0 mt-1"
                                   [innerHTML]="comment.comment"
@@ -143,7 +143,7 @@
                                       <img
                                         class="avatar-img rounded-3"
                                         loading="lazy"
-                                        [src]="reply.ProfilePicName"
+                                        [src]="reply.profilePicName"
                                         onerror="this.onerror=null;this.src='/assets/img/avatars/placeholder-user.png';"
                                         alt="avatar"
                                       />
@@ -154,7 +154,7 @@
                                       >
                                         <div class="">
                                           <h6 class="m-0 mb-3">
-                                            <a>{{ reply?.Username }}</a>
+                                            <a>{{ reply?.userName }}</a>
                                           </h6>
                                           <p
                                             class="mdtxt mb-0"

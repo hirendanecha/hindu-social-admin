@@ -1,0 +1,118 @@
+<c-container class="container">
+  <c-card-header class="d-flex flex-column gap-2">
+    <c-row class="align-items-center">
+      <c-col>
+        <img
+        [src]="ticketDetails.profilePicName"
+        class="avatar-img"
+          onerror="this.onerror=null;this.src='/assets/img/avatars/placeholder-user.png'"
+        />
+        <h4>Ticket Raised by {{ ticketDetails.userName }}</h4>
+      </c-col>
+      <c-col>
+        <h4>Ticket Status</h4>
+        <button
+          class="btn btn-sm btn-success text-white custom-btn"
+          *ngIf="ticketDetails.isResolved === 'N'"
+        >
+          Approve
+        </button>
+        <button
+          class="btn btn-sm btn-danger text-white custom-btn"
+          *ngIf="ticketDetails.isResolved === 'Y'"
+        >
+          UnApprove
+        </button>
+      </c-col>
+    </c-row>
+  </c-card-header>
+  <c-card-body>
+    <c-row class="mt-4">
+      <c-col *ngIf="ticketDetails?.deviceName">
+        <h6 class="d-flex">Device & Operating System</h6>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Enter Device Name"
+          [value]="ticketDetails.deviceName"
+          readonly
+        />
+      </c-col>
+      <c-col *ngIf="ticketDetails?.browserName">
+        <h6>Browser</h6>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Enter Browser Name"
+          [value]="ticketDetails.browserName"
+          readonly
+        />
+      </c-col>
+    </c-row>
+
+    <c-row class="mt-4">
+      <div>
+        <h6 class="text-start">Exact details of how the issue occurred</h6>
+        <textarea
+          type="text"
+          class="form-control"
+          rows="3"
+          placeholder="Exact details of how the issue occurred"
+          readonly
+          >{{ ticketDetails.description }}</textarea
+        >
+      </div>
+
+      <div class="col form-group mt-5" *ngIf="ticketDetails?.attachmentFiles">
+        <h6 class="form-label">Attached Media</h6>
+        <div class="w-100-px h-100-px">
+          <div
+            class="img-preview rounded-3"
+            *ngIf="!isVideoFile(ticketDetails.attachmentFiles)"
+          >
+            <img
+              loading="lazy"
+              data-src="{{ ticketDetails.attachmentFiles }}"
+              class="w-100 h-100 rounded-3 image-render"
+              alt="preview-img"
+            />
+
+            <div
+              class="icon-eye d-flex flex-column justify-content-center align-items-center c-icon-color icon-container"
+              (click)="openImagePreview(ticketDetails.attachmentFiles)"
+            >
+              <i class="material-symbols-outlined make-large"> visibility </i>
+            </div>
+          </div>
+          <ng-container *ngIf="previewSrc">
+            <div
+              class="img-preview-full-screen d-flex flex-column justify-content-center align-items-center p-5 c-icon-color"
+              (click)="closeImagePreview()"
+            >
+            <i class="material-symbols-outlined close-icon make-large">
+              close
+            </i>
+              <img
+                loading="lazy"
+                data-src="{{ ticketDetails.attachmentFiles }}"
+                class="w-80 h-80 rounded-3 image-preview"
+                alt="preview-img"
+                onerror="this.onerror=null;this.src='/assets/images/avtar/placeholder-user.png';"
+              />
+            </div>
+          </ng-container>
+
+          <video
+            *ngIf="isVideoFile(ticketDetails.attachmentFiles)"
+            class="w-200-px h-200-px message-media"
+            [src]="ticketDetails.attachmentFiles"
+            controls
+          ></video>
+        </div>
+      </div>
+    </c-row>
+    <c-row class="float-end mt-3">
+      <button cButton color="primary" (click)="backToSetting()">Done</button>
+    </c-row>
+  </c-card-body>
+</c-container>

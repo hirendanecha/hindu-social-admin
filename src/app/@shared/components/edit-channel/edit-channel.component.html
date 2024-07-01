@@ -75,8 +75,8 @@
           <label>Username</label>
           <input
           cFormControl
-          name="Username"
-          [(ngModel)]="channelDetails.Username"
+          name="userName"
+          [(ngModel)]="channelDetails.userName"
           type="text"
           disabled
           />
@@ -98,7 +98,7 @@
           <label for="">Make Channel Admin</label>
           <ng-select
             [items]="userList"
-            bindLabel="Username"
+            bindLabel="userName"
             bindValue="Id"
             [multiple]="true"
             placeholder="Select user"
@@ -116,7 +116,7 @@
                   class="me-1"
                   onerror="this.onerror=null;this.src='/assets/img/avatars/placeholder-user.png';"
                 />
-                <span>{{ item.Username }}</span>
+                <span>{{ item.userName }}</span>
               </div>
             </ng-template>
           </ng-select>
@@ -140,7 +140,7 @@
               <div
                 class="d-flex flex-column justify-content-center align-items-start w-100"
               >
-                <p class="mb-1">{{ member?.Username }}</p>
+                <p class="mb-1">{{ member?.userName }}</p>
                 <span class="font-12-px description">{{
                   member?.isAdmin === "Y" ? "Admin" : "Member"
                 }}</span>
