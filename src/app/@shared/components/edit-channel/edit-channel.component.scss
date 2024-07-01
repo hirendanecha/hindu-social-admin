@@ -9,7 +9,18 @@
     width: 3.5rem;
     height: 3.5rem;
   }
-
+  .set-select {
+    .material-symbols-outlined {
+      top: 35px;
+      left: 35px;
+      cursor: pointer;
+      display: none;
+    }
+  }
+  .set-select:hover .material-symbols-outlined {
+    color: #fff;
+    display: unset;
+  }
   .post-message-input,
   .comment-input {
     font-size: 16px;
@@ -41,13 +52,13 @@
   }
 }
 
-.single-box{
+.single-box {
   max-width: 300px;
   background: #3c4b64;
   margin: 10px;
   color: #fff;
 
-  .material-symbols-outlined{
+  .material-symbols-outlined {
     color: #fff;
     cursor: pointer;
   }

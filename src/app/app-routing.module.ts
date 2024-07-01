@@ -68,6 +68,12 @@ const routes: Routes = [
           import('./views/channels/channels.module').then((m) => m.ChannelsModule),
           canActivate: mapToCanActivate([AuthenticationGuard])
       },
+      {
+        path: 'report-bugs',
+        loadChildren: () =>
+          import('./views/setting/setting.module').then((m) => m.SettingModule),
+        canActivate: mapToCanActivate([AuthenticationGuard])
+      },
     ],
   },
   {

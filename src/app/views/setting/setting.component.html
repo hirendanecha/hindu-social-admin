@@ -1,0 +1,108 @@
+<c-card class="app-user mb-3">
+  <c-card-header class="d-flex align-items-center justify-content-between">
+    Support Ticket Details
+  </c-card-header>
+
+  <c-card-body>
+    <!-- Download csv -->
+    <!-- <c-row class="pb-3 justify-content-between d-flex align-items-center">
+      <c-col md="10">
+        <app-filter
+          [class]="'justify-content-start'"
+          [showSearchInput]="shouldShowSearchInput"
+          (searchClick)="onSearch()"
+        ></app-filter>
+      </c-col>
+      <c-col md="2" class="text-end">
+        <div class="filter-table-action btn btn-outline-secondary">
+          <span class="material-symbols-outlined" (click)="downloadCsv()"
+            >download</span
+          >
+        </div>
+      </c-col>
+    </c-row> -->
+    <app-table>
+      <thead cTableColor="light">
+        <tr class="text-center">
+          <th class="text-center">No</th>
+          <th>Profile</th>
+          <th>User Name</th>
+          <th>Device</th>
+          <th>Browser</th>
+          <th>Description</th>
+          <th>DateCreation</th>
+          <th>Status</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let report of bugReports; let i = index">
+          <tr class="text-center align-middle" *ngIf="report.id">
+            <td>
+              {{ i + 1 }}
+            </td>
+            <td>
+              <img
+                class="avatar-img"
+                [src]="report.profilePicName"
+                onerror="this.onerror=null;this.src='/assets/img/avatars/placeholder-user.png';"
+              />
+            </td>
+            <td>{{ report.userName }}</td>
+            <td class="c-width">
+              {{ report.deviceName || '-' }}
+            </td>
+            <td class="c-width">
+              {{ report.browserName || '-' }}
+            </td>
+            <td class="c-width">
+              {{ report.description || '-' }}
+            </td>
+            <td>{{ report.createdDate | date : "d-MM-YYYY" }}</td>
+            <td>
+              <button
+                class="btn btn-sm btn-danger text-white custom-btn"
+                *ngIf="report.isResolved === 'N'"
+                (click)="changeReportStatus(report, 'Y')"
+              >
+                Pending
+              </button>
+              <button
+              class="btn btn-sm btn-success text-white custom-btn"
+              *ngIf="report.isResolved === 'Y'"
+              (click)="changeReportStatus(report, 'N')"
+                >
+                Resolved
+              </button>
+            </td>
+            <td>
+              <button
+                class="bg-transparent border-0"
+                size="sm"
+                (click)="openReport(report.id)"
+              >
+                <i class="material-symbols-outlined"> open_in_new </i>
+              </button>
+              <button
+                class="bg-transparent border-0"
+                size="sm"
+                (click)="deleteReport(report.id)"
+              >
+                <!-- <svg cIcon name="cil-trash" size="md"></svg> -->
+                <i class="material-symbols-outlined"> delete </i>
+              </button>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+
+      <h6 *ngIf="!bugReports.length" class="text-center p-5 m-0">
+        No Suggestions Available
+      </h6>
+    </app-table>
+  </c-card-body>
+  <app-pagination
+  class="p-4"
+  [items]="pagination?.totalItems"
+  (onPageChange)="onPageChange($event)" />
+</c-card>
