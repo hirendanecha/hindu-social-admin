@@ -86,7 +86,8 @@ export class CreateChannelComponent {
 
   upload() {
     this.spinner.show();
-    this.channelService.upload(this.profileImg.file, 1, 'channel').subscribe({
+    // this.channelService.upload(this.profileImg.file, 1, 'channel').subscribe({
+      this.channelService.upload(this.profileImg.file).subscribe({
       next: (res: any) => {
         this.spinner.hide();
         if (this.profileImg.file?.size < 5120000) {
