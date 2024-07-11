@@ -1,0 +1,17 @@
+.app-user{
+  .card-container{
+    height: 320px;
+    width: 350px;
+    .select-card-input{
+      align-content: center;
+      align-self: center;
+      .camera-input{
+        font-size: 50px;
+      }
+      .selected-image{
+        max-height: 200px;
+        max-width: 300px;
+      }
+    }
+  }
+}

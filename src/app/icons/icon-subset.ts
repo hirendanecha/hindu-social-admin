@@ -96,7 +96,8 @@ import {
   cilLibrary,
   cilCommentBubble,
   cilHttps,
-  cilScreenDesktop
+  cilScreenDesktop,
+  cilPlaylistAdd
 } from '@coreui/icons';
 
 export const iconSubset = {
@@ -197,7 +198,8 @@ export const iconSubset = {
   cilLibrary,
   cilCommentBubble,
   cilHttps,
-  cilScreenDesktop
+  cilScreenDesktop,
+  cilPlaylistAdd
 };
 
 export enum IconSubset {
@@ -295,5 +297,6 @@ export enum IconSubset {
   cilThumbDown = 'cilThumbDown',
   cilMoodVeryGood = 'cilMoodVeryGood',
   cilLibrary = 'cilLibrary',
-  cilScreenDesktop = 'cilScreenDesktop'
+  cilScreenDesktop = 'cilScreenDesktop',
+  cilPlaylistAdd = 'cilPlaylistAdd'
 }

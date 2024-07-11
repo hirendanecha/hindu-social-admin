@@ -1,0 +1,91 @@
+<c-card class="app-user mb-3">
+  <c-card-header class="d-flex align-items-center justify-content-between">
+    Advertisement Page
+  </c-card-header>
+  <c-card-body>
+    <div class="container">
+      <div class="d-flex flex-wrap gap-5">
+        <div
+          class="d-flex flex-column"
+          *ngFor="let advertisement of advertisementDataList"
+        >
+          <c-card class="card-container p-0">
+            <c-col class="d-flex flex-column">
+              <c-card-header class="d-flex justify-content-between">
+                <label class="h4 m-0">Advertisements Image </label>
+                <button
+                  *ngIf="advertisement.imageUrl"
+                  class="bg-transparent border-0 p-0 pt-1"
+                  size="sm"
+                  (click)="deleteAdvertisement(advertisement.id)"
+                >
+                  <i class="material-symbols-outlined"> delete </i>
+                </button>
+              </c-card-header>
+              <c-col class="select-card-input">
+                <div class="d-flex c-size-icon" *ngIf="!advertisement.imageUrl">
+                  <span
+                    class="material-symbols-outlined camera-input cursor"
+                    (click)="uploadImage.click()"
+                  >
+                    add_a_photo
+                  </span>
+                  <input
+                    #uploadImage
+                    class="d-none"
+                    type="file"
+                    id="fileInput"
+                    (change)="onFileSelected($event, advertisement.id)"
+                    accept="image/*"
+                  />
+                </div>
+                <ng-container *ngIf="advertisement.imageUrl">
+                  <div class="position-relative">
+                    <span
+                      class="material-symbols-outlined position-absolute start-100 rounded-1 text-white bg-danger cursor"
+                      (click)="removePostSelectedFile(advertisement.id)"
+                    >
+                      close
+                    </span>
+                    <img
+                      loading="lazy"
+                      [src]="advertisement.imageUrl"
+                      class="rounded-4 selected-image"
+                      alt="icon"
+                      onerror="this.onerror=null;"
+                    />
+                  </div>
+                </ng-container>
+              </c-col>
+            </c-col>
+            <c-card-footer class="text-medium-emphasis">
+              <input
+                class="w-100"
+                type="text"
+                [(ngModel)]="advertisement.link"
+                placeholder="Enter advertisement link"
+                [disabled]="!advertisement.imageUrl"
+                (ngModelChange)="onLinkChange(advertisement)"
+              />
+            </c-card-footer>
+          </c-card>
+          <div
+            class="align-self-end mt-3"
+            *ngIf="
+              advertisement.file ||
+              (advertisement.link && advertisement.isLinkChanged)
+            "
+          >
+            <button
+              cButton
+              color="primary"
+              (click)="saveAdvertisement(advertisement.id)"
+            >
+              Upload
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </c-card-body>
+</c-card>
