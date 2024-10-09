@@ -14,6 +14,10 @@ export class PostService {
   private baseUrl = environment.serverUrl + 'posts';
   constructor(private http: HttpClient) { }
 
+  hidePost(id, isdeleted): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/hide-post/${id}?isDeleted=${isdeleted}`);
+  }
+
   deletePost(id): Observable<any> {
     return this.http.delete(`${this.baseUrl}/${id}`);
   }
@@ -24,6 +28,10 @@ export class PostService {
     );
   }
 
+  getPostsByPostId(id) {
+    return this.http.get(`${this.baseUrl}/get/${id}`);
+  }
+
   getPostDetails(id): Observable<any> {
     return this.http.get(`${this.baseUrl}/get/${id}`);
   }
@@ -32,12 +40,16 @@ export class PostService {
   //   return this.http.get(`${this.baseUrl}/${id}?startDate=${startDate}&endDate=${endDate}`);
   // }
 
+  getAllPost(data): Observable<any> {
+    return this.http.post(`${this.baseUrl}/get-all-posts`, data);
+  }
+  
   viewPost(data): Observable<any> {
     return this.http.post(`${this.baseUrl}/get-my-post`, data);
   }
   
-  getComments(id): Observable<any> {
-    return this.http.get(`${this.baseUrl}/comments/${id}`);
+  getComments(data): Observable<any> {
+    return this.http.post(`${this.baseUrl}/comments`, data);
   }
 
   deleteComments(id): Observable<any> {

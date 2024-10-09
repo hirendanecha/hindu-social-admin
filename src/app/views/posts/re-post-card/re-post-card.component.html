@@ -1,0 +1,45 @@
+<c-card class="p-3 post-card">
+  <div class="d-flex align-items-start">
+    <c-col md="1">
+      <img
+        class="avatar-img"
+        [src]="parentPost?.ProfilePicName"
+        onerror="this.onerror=null;this.src='/assets/img/avatars/placeholder-user.png';"
+      />
+    </c-col>
+    <c-col>
+      <div class="d-flex">
+        <p class="mb-0 fw-bold" *ngIf="parentPost?.Username">
+          @{{ parentPost?.Username | lowercase }} 
+          <span class="fw-400">{{ parentPost?.postcreationdate | dateDay }}</span>
+        </p>
+      </div>
+      <div class="mt-3">
+        <p
+          class="post-description"
+          [innerHTML]="parentPost?.postdescription"
+        ></p>
+        <a
+          *ngIf="parentPost.metalink"
+          [href]="parentPost.metalink"
+          target="_blank"
+          class="post-description"
+          [innerHTML]="parentPost?.metalink"
+        ></a>
+        <ng-container *ngIf="parentPost?.imagesList">
+          <app-img-layout [post]="parentPost" />
+        </ng-container>
+        <div *ngIf="parentPost?.imageUrl">
+          <img class="img-post" [src]="parentPost?.imageUrl" alt="" />
+        </div>
+        <ng-container *ngIf="parentPost?.streamname">
+          <div
+            [id]="'jwVideo-' + parentPost?.id"
+            class="w-100 c-height"
+            loading="lazy"
+          ></div>
+        </ng-container>
+      </div>
+    </c-col>
+  </div>
+</c-card>

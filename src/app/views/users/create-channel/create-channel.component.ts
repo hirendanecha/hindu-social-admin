@@ -33,28 +33,27 @@ export class CreateChannelComponent {
   selectedItems = [];
   memberIds: any = [];
   userList: readonly any[];
-  profileId: number
+  profileId: number;
 
   constructor(
     private spinner: NgxSpinnerService,
     private userService: UserService,
     public toastService: ToastService,
     public activateModal: NgbActiveModal,
-    // private channelService: ChannelService
     private channelService: ChannelService,
     private router: Router
-  ) { }
+  ) {}
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   slugify = (str: string) => {
     return str?.length > 0
       ? str
-        .toLowerCase()
-        .trim()
-        .replace(/[^\w\s-]/g, '')
-        .replace(/[\s_-]+/g, '-')
-        .replace(/^-+|-+$/g, '')
+          .toLowerCase()
+          .trim()
+          .replace(/[^\w\s-]/g, '')
+          .replace(/[\s_-]+/g, '-')
+          .replace(/^-+|-+$/g, '')
       : '';
   };
 
@@ -67,12 +66,12 @@ export class CreateChannelComponent {
 
   saveChanges(): void {
     if (this.userForm.valid) {
-      console.log(this.userForm.value)
+      console.log(this.userForm.value);
       this.spinner.show();
       this.channelService.createChannel(this.userForm.value).subscribe({
         next: (res: any) => {
           this.spinner.hide();
-          this.createAdmin(res?.data)
+          this.createAdmin(res?.data);
           this.activateModal.close('success');
           this.toastService.success('Channel created successfully');
         },
@@ -87,7 +86,7 @@ export class CreateChannelComponent {
   upload() {
     this.spinner.show();
     // this.channelService.upload(this.profileImg.file, 1, 'channel').subscribe({
-      this.channelService.upload(this.profileImg.file).subscribe({
+    this.channelService.upload(this.profileImg.file).subscribe({
       next: (res: any) => {
         this.spinner.hide();
         if (this.profileImg.file?.size < 5120000) {
@@ -96,13 +95,10 @@ export class CreateChannelComponent {
             this.userForm.get('profile_pic_name').setValue(this.profilePic);
             this.saveChanges();
           }
-        } else {
-          if (!this.hasDisplayedError) {
-            this.toastService.danger('Image is too large!');
-            this.hasDisplayedError = true;
-          }
+        } else if (!this.hasDisplayedError && this.profileImg.file?.size > 5120000) {
+          this.toastService.danger('Image is too large!');
+          this.hasDisplayedError = true;
         }
-
       },
       error: (err) => {
         this.spinner.hide();
@@ -113,9 +109,9 @@ export class CreateChannelComponent {
         return 'Could not upload the file:' + this.profileImg.file.name;
       },
     });
-    if (this.onSelectUser.length < 0)
-      this.toastService.danger('Please Select User');
-
+    // if (!this.userForm.get('profileid')?.value){
+    //   this.toastService.danger('Please Select User');
+    // }
   }
   onItemSelect(event) {
     this.getUserList(event.term);
@@ -124,8 +120,8 @@ export class CreateChannelComponent {
 
   onSelectUser(item: any): void {
     // this.selectedItems.push(item.Id);
-    this.userForm.get('profileid').setValue(item.Id)
-    this.profileId = item.Id
+    this.userForm.get('profileid').setValue(item.Id);
+    this.profileId = item.Id;
   }
   getUserList(search: string = ''): void {
     this.spinner.show();
@@ -163,7 +159,7 @@ export class CreateChannelComponent {
     this.channelService.createChannalAdminByMA(data).subscribe({
       next: (res: any) => {
         if (res) {
-          this.router.navigate(['/channels'])
+          this.router.navigate(['/channels']);
         }
         // if (this.isPage) {
         // } else {

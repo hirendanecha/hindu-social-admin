@@ -22,7 +22,7 @@
             <c-col>
               <div class="d-flex justify-content-between">
                 <p class="mb-0" *ngIf="post?.Username">
-                  @{{ post?.Username | lowercase }}
+                  &#64;{{ post?.Username | lowercase }}
                 </p>
                 <button
                   class="btn text-light btn-sm btn-danger float-end"
@@ -43,9 +43,20 @@
                   class="post-description"
                   [innerHTML]="post?.metalink"
                 ></a>
+                <app-post-meta-data-card [post]="post" />
                 <div *ngIf="post?.imageUrl">
                   <img class="img-post" [src]="post?.imageUrl" alt="" />
                 </div>
+                <ng-container *ngIf="post?.imagesList">
+                  <app-img-layout [post]="post" />
+                </ng-container>
+                <ng-container *ngIf="post?.streamname">
+                  <div
+                    [id]="'jwVideo-' + post?.id"
+                    class="w-100 c-height"
+                    loading="lazy"
+                  ></div>
+                </ng-container>
                 <div class="like-section border-top border-bottom mt-1">
                   <ul
                     class="ps-0 d-flex align-items-center justify-content-around mb-0 w-100"
@@ -255,7 +266,7 @@
       class="d-flex justify-content-center mb-2"
       *ngIf="!hasMoreData && postList.length === 10"
     >
-      <button class="btn btn-outline-primary" (click)="loadMore()">
+      <button class="btn btn-outline-primary" (click)="loadMore(false)">
         Load More
       </button>
     </div>

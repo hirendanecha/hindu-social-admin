@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { io } from 'socket.io-client';
-// import { environment } from 'src/environments/environment';
+import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -9,10 +9,32 @@ export class SocketService {
   public socket: any;
 
   constructor() {
-    // this.socket = io(environment.socketUrl);
+    const token = localStorage.getItem('auth-token');
+    if (token) {
+      const customHeaders = {
+        Authorization: `Bearer ${token}`,
+      };
+      this.socket = io(environment.socketUrl, {
+        reconnectionDelay: 100,
+        reconnectionDelayMax: 300,
+        randomizationFactor: 0.2,
+        reconnectionAttempts: 50000,
+        transports: ['websocket'],
+        auth: customHeaders,
+      });
+    }
   }
 
+ // socket for suspend user //
+  isSuspendUser(params, callback: (post: any) => void) {
+    this.socket.emit('suspend-user', params, callback);
+  }
+  
   // socket for posts //
+  likeFeedPost(params, callback: (post: any) => void) {
+    this.socket?.emit('likeOrDislike', params, callback);
+  }
+
   // getPost(params, callback: (post: any) => void) {
   //   this.socket.emit('get-new-post', params, callback);
   // }

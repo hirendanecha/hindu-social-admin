@@ -70,8 +70,8 @@ export class CommunityComponent implements OnInit, AfterViewInit {
       )?.subscribe({
         next: (res: any) => {
           this.spinner.hide();
-          if (res.data) {
-            this.communityList = res?.data;
+          if (res) {
+            this.communityList = res;
             this.pagination.totalItems = res?.pagination?.totalItems;
             this.pagination.perPage = res?.pagination?.pageSize;
           }

@@ -20,11 +20,11 @@ export const navItems: INavData[] = [
     url: '/pages',
     iconComponent: { name: 'cil-layers' },
   },
-  // {
-  //   name: 'Post List',
-  //   url: '/post-list',
-  //   iconComponent: { name: 'cil-basket' },
-  // },
+  {
+    name: 'News Feed',
+    url: '/newsfeed',
+    iconComponent: { name: 'cil-notes' },
+  },
   // {
   //   name: 'Community Post List',
   //   url: '/community-post',

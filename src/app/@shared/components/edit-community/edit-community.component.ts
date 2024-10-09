@@ -84,7 +84,10 @@ export class EditCommunityComponent implements OnInit, AfterViewInit {
         if (res) {
           this.spinner.hide();
           this.communityDetails = res[0];
-          this.memberDetails = res[0].memberList[0];
+          [this.memberDetails] = res[0].memberList.filter((ele: any) => {
+            return ele.profileId === this.communityDetails.profileId;
+          });
+          console.log(this.memberDetails, 'memberDetails');
           this.memberIds = res[0].memberList.map((member) => member.profileId);
           this.adminList = res[0].memberList.map((member) => member);
           const data = {
@@ -239,7 +242,7 @@ export class EditCommunityComponent implements OnInit, AfterViewInit {
         next: (res: any) => {
           if (res) {
             this.toastService.success(res.message);
-            this.getUserDetails()
+            this.getUserDetails();
           }
         },
         error: (error) => {

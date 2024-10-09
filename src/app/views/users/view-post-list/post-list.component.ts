@@ -53,7 +53,7 @@ export class ViewUserPostComponent implements OnInit, AfterViewInit {
     this.getPostLists();
   }
 
-  ngAfterViewInit(): void {}
+  ngAfterViewInit(): void { }
 
   getPostLists(): void {
     // const userId = this.userId;
@@ -80,10 +80,11 @@ export class ViewUserPostComponent implements OnInit, AfterViewInit {
     //     },
     //   });
     this.activePage = 0;
-    this.loadMore();
+    const isAfterDelete: Boolean = true;
+    this.loadMore(isAfterDelete);
   }
 
-  loadMore() {
+  loadMore(isAfterDelete: Boolean) {
     this.activePage++;
     this.spinner.show();
     const data = {
@@ -97,9 +98,14 @@ export class ViewUserPostComponent implements OnInit, AfterViewInit {
       next: (res: any) => {
         this.spinner.hide();
         if (res?.data?.data.length > 0) {
-          this.postList = this.postList.concat(res.data.data);
+          if (isAfterDelete) {
+            this.postList = res.data.data;
+          } else {
+            this.postList = this.postList.concat(res.data.data);
+          }
           this.hasMoreData = false;
         } else {
+          this.postList = []
           this.hasMoreData = true;
         }
       },
