@@ -1,16 +1,17 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { UserService } from 'src/app/services/user.service';
+import { UserService } from '../../services/user.service';
 import { EditUserDialogComponent } from './edit-user-dialog/edit-user-dialog.component';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { DeleteDialogComponent } from './delete-confirmation-dialog/delete-dialog.component';
-import { Pagination } from 'src/app/@shared/interface/pagination';
+import { Pagination } from '../../@shared/interface/pagination';
 import { FormControl } from '@angular/forms';
 import { debounceTime, distinctUntilChanged } from 'rxjs';
 import { Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
-import { FilterComponent } from 'src/app/@shared/components/filter/filter.component';
-import { ToastService } from 'src/app/services/toast.service';
-import { PostService } from 'src/app/services/post.service';
+import { FilterComponent } from '../../@shared/components/filter/filter.component';
+import { ToastService } from '../../services/toast.service';
+import { PostService } from '../../services/post.service';
+import { SocketService } from '../../services/socket.service';
 
 @Component({
   selector: 'app-user',
@@ -40,6 +41,7 @@ export class UserComponent implements OnInit {
     private modalService: NgbModal,
     private router: Router,
     private spinner: NgxSpinnerService,
+    private socketService: SocketService,
     private toaster: ToastService 
   ) {
     // this.searchCtrl = new FormControl('');
@@ -178,16 +180,15 @@ export class UserComponent implements OnInit {
     });
   }
 
-  suspendUser(id: any, status: any): void {
-    this.userService.suspendUser(id, status).subscribe({
-      next: (res) => {
-        this.toaster.success(res.message);
-        this.getUserList();
-
-      },
-      error: (error) => {
-        this.toaster.danger(error.message);
-      },
+  suspendUser(user: any, status: any): void {
+    const userData = {
+      id: user.Id,
+      profileId: user.profileId,
+      isSuspended: status
+    }
+    this.socketService.isSuspendUser(userData, (res) => {
+      this.toaster.success(res.message);
+      this.getUserList();
     });
   }
   

@@ -74,6 +74,10 @@
               <h4>Phone:</h4>
               {{ user.MobileNo || "-" }}
             </div>
+            <div class="d-flex">
+              <h4>Unsubscribed By:</h4>
+              {{ user.unsubscribeCount }}
+            </div>
           </div>
           <div class="clo-4 d-flex flex-column c-list-btn">
             <button
@@ -82,7 +86,7 @@
                 user.IsSuspended === 'N' ? ' btn-danger' : 'btn-success'
               "
               (click)="
-                suspendUser(user.Id, user.IsSuspended === 'N' ? 'Y' : 'N')
+                suspendUser(user, user.IsSuspended === 'N' ? 'Y' : 'N')
               "
             >
               {{ user.IsSuspended === "N" ? "Suspend" : "Re-active" }}
@@ -218,7 +222,7 @@
                     user.IsSuspended === 'N' ? ' btn-danger' : 'btn-success'
                   "
                   (click)="
-                    suspendUser(user.Id, user.IsSuspended === 'N' ? 'Y' : 'N')
+                    suspendUser(user, user.IsSuspended === 'N' ? 'Y' : 'N')
                   "
                 >
                   {{ user.IsSuspended === "N" ? "Suspend" : "Re-active" }}
