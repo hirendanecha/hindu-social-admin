@@ -62,9 +62,6 @@ export class LoginComponent {
         if (data) {
           this.tokenStorage.saveToken(data?.accessToken);
           // this.tokenStorage.saveUser(data.user);
-          window.sessionStorage['user_id'] = data.user.Id;
-          window.sessionStorage['user_country'] = data.user.Country;
-          window.sessionStorage['user_zip'] = data.user.Zip;
           this.toaster.success('Login successfully');
           this.router.navigate([`/dashboard`]);
         } else {
@@ -73,7 +70,7 @@ export class LoginComponent {
         }
       },
       error: (err) => {
-        this.toaster.danger(err.message);
+        this.toaster.danger(err.error.message);
       },
     });
   }

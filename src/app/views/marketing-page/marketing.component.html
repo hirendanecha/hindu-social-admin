@@ -1,6 +1,9 @@
 <c-card class="app-user mb-3">
   <c-card-header class="d-flex align-items-center justify-content-between">
     Marketing Page
+    <div>
+      From: <span class="fw-bold">{{ startDate | date:'MMM d, y' }}</span> to <span class="fw-bold">{{ endDate | date:'MMM d, y' }}</span>
+    </div>
   </c-card-header>
 
   <c-card-body>
@@ -29,13 +32,20 @@
         </tr>
       </thead>
       <tbody>
-        <tr
-          class="text-start align-middle"
-          *ngFor="let user of userData; let i = index"
-        >
-          <td>{{ i + 1 }}</td>
-          <td>{{ user.email }}</td>
-        </tr>
+        <ng-container *ngIf="userData.length else noDataFound">
+          <tr
+            class="text-start align-middle"
+            *ngFor="let user of userData; let i = index"
+          >
+            <td>{{ i + 1 }}</td>
+            <td>{{ user.Email }}</td>
+          </tr>
+        </ng-container>
+        <ng-template #noDataFound>
+          <tr>
+            <td colspan="2" class="text-center">No data found</td>
+          </tr>
+        </ng-template>
       </tbody>
     </app-table>
   </c-card-body>

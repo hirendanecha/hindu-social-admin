@@ -35,6 +35,7 @@ import { FilterComponent } from './components/filter/filter.component';
 import { EditCommunityComponent } from './components/edit-community/edit-community.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ToasterComponent } from 'src/app/@shared/toaster/toaster.component'
+import { ImgLayoutComponent } from './components/img-layout/img-layout.component'
 import { CreateChannelComponent } from '../views/users/create-channel/create-channel.component';
 const sharedComponents = [
   PaginationComponent,
@@ -44,7 +45,8 @@ const sharedComponents = [
   FilterComponent,
   EditCommunityComponent,
   ToasterComponent,
-  CreateChannelComponent
+  CreateChannelComponent,
+  ImgLayoutComponent
 ];
 
 const sharedModules = [

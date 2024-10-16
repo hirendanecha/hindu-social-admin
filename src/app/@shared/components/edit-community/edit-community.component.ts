@@ -87,7 +87,6 @@ export class EditCommunityComponent implements OnInit, AfterViewInit {
           [this.memberDetails] = res[0].memberList.filter((ele: any) => {
             return ele.profileId === this.communityDetails.profileId;
           });
-          console.log(this.memberDetails, 'memberDetails');
           this.memberIds = res[0].memberList.map((member) => member.profileId);
           this.adminList = res[0].memberList.map((member) => member);
           const data = {
