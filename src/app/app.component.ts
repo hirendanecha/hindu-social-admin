@@ -8,7 +8,7 @@ import { TokenStorageService } from './services/token-storage.service';
 
 @Component({
   selector: 'app-root',
-  template: '<app-toaster /><router-outlet></router-outlet>',
+  template: '<router-outlet></router-outlet><app-toaster />',
 })
 export class AppComponent implements OnInit {
   title = 'Hindu Social Admin';
