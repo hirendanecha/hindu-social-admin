@@ -165,7 +165,7 @@
               <div
                 class="d-flex flex-column justify-content-center align-items-start w-100"
               >
-                <p class="mb-1">{{ member?.Username }}</p>
+                <p class="mb-1 text-format" [title]="member?.Username">{{ member?.Username }}</p>
                 <span class="font-12-px description">{{
                   member?.isAdmin === "Y" ? "Admin" : "Member"
                 }}</span>

@@ -3,8 +3,6 @@ import { RouterModule, Routes } from '@angular/router';
 import { SettingComponent } from './setting.component';
 import { ViewReportComponent } from './view-report/view-report.component';
 
-// import { ViewReportComponent } from './view-report/view-report.component';
-
 const routes: Routes = [
   {
     path: '',

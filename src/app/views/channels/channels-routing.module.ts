@@ -5,7 +5,6 @@ import { EditChannelComponent } from 'src/app/@shared/components/edit-channel/ed
 
 const routes: Routes = [
   {
-    
     path: '',
     component: ChannelsComponent,
     data: {

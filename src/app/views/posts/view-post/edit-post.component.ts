@@ -4,6 +4,9 @@ import { FilterComponent } from 'src/app/@shared/components/filter/filter.compon
 import { PostService } from 'src/app/services/post.service';
 import { UserService } from 'src/app/services/user.service';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { DeleteDialogComponent } from '../../users/delete-confirmation-dialog/delete-dialog.component';
+import { ToastService } from 'src/app/services/toast.service';
 
 @Component({
   selector: 'app-edit-post',
@@ -23,6 +26,8 @@ export class ViewPostComponent implements OnInit, AfterViewInit {
     private userService: UserService,
     private route: ActivatedRoute,
     private router: Router,
+    private modalService: NgbModal,
+    private toaster: ToastService,
     private spinner: NgxSpinnerService
   ) {
     this.postId = this.route.snapshot.paramMap.get('id');
@@ -83,5 +88,31 @@ export class ViewPostComponent implements OnInit, AfterViewInit {
     const searchTerm = this.filterComponent.searchCtrl.value;
     const startDate = this.filterComponent.startDate;
     const toDate = this.filterComponent.toDate;
+  }
+
+  deletePost(Id: any) {
+    const modalRef = this.modalService.open(DeleteDialogComponent, {
+      centered: true,
+    });
+    modalRef.componentInstance.title = 'Post';
+    modalRef.componentInstance.userId = Id;
+    modalRef.componentInstance.message =
+      'Are you sure want to delete this post?';
+    modalRef.result.then((res) => {
+      if (res === 'success') {
+        this.postService.deletePost(Id).subscribe({
+          next: (res: any) => {
+            if (res) {
+              this.toaster.success(res.message);
+              modalRef.close();
+              this.router.navigate(['/newsfeed']);
+            }
+          },
+          error: (error) => {
+            this.toaster.danger(error.message);
+          },
+        });
+      }
+    });
   }
 }

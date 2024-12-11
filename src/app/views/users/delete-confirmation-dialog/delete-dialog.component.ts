@@ -11,6 +11,7 @@ export class DeleteDialogComponent implements OnInit {
   @Input() userId: any;
   @Input() message: any;
   @Input() title: any;
+  @Input() successBtn: string = 'Delete';
   visible = false;
   percentage = 0;
   type = '';

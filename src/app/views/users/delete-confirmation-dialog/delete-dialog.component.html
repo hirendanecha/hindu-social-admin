@@ -40,7 +40,7 @@
   alignment="center"
 >
   <c-modal-header>
-    <h5 cModalTitle>Delete {{ title }}</h5>
+    <h5 cModalTitle>{{ title }}</h5>
     <button (click)="activateModal.close()" cButtonClose></button>
   </c-modal-header>
   <c-modal-body>
@@ -63,7 +63,7 @@
       class="text-white"
       (click)="activateModal.close('success')"
     >
-      Delete
+      {{ successBtn }}
     </button>
   </c-modal-footer>
 </c-modal>

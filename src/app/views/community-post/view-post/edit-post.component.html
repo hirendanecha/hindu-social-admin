@@ -31,6 +31,9 @@
                   class="post-description"
                   >{{ postDetails?.metalink }}</a
                 >
+                <ng-container *ngIf="postDetails?.imagesList">
+                  <app-img-layout [post]="postDetails" />
+                </ng-container>
                 <div *ngIf="postDetails?.imageUrl">
                   <img class="img-post" [src]="postDetails?.imageUrl" alt="" />
                 </div>

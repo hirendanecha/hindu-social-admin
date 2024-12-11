@@ -3,11 +3,11 @@
     <c-row class="align-items-center">
       <c-col>
         <img
-        [src]="ticketDetails.profilePicName"
-        class="avatar-img"
+          [src]="ticketDetails.ProfilePicName"
+          class="avatar-img"
           onerror="this.onerror=null;this.src='/assets/img/avatars/placeholder-user.png'"
         />
-        <h4>Ticket Raised by {{ ticketDetails.userName }}</h4>
+        <h4>Ticket Raised by {{ ticketDetails.Username }}</h4>
       </c-col>
       <c-col>
         <h4>Ticket Status</h4>
@@ -89,9 +89,7 @@
               class="img-preview-full-screen d-flex flex-column justify-content-center align-items-center p-5 c-icon-color"
               (click)="closeImagePreview()"
             >
-            <i class="material-symbols-outlined close-icon make-large">
-              close
-            </i>
+            <i class="material-symbols-outlined close-icon make-large"> close </i>
               <img
                 loading="lazy"
                 data-src="{{ ticketDetails.attachmentFiles }}"
@@ -112,7 +110,7 @@
       </div>
     </c-row>
     <c-row class="float-end mt-3">
-      <button cButton color="primary" (click)="backToSetting()">Done</button>
+        <button cButton color="primary" (click)="backToSetting()">Done</button>
     </c-row>
   </c-card-body>
 </c-container>

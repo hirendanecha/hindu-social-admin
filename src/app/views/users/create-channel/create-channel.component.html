@@ -44,7 +44,6 @@
       </c-col>
       <!-- [multiple]="true" -->
       <c-col md="12" class="mt-3">
-        <!-- <label for="">Channel Admin</label> -->
         <label for="">Master Admin</label>
         <ng-select [items]="userList" bindLabel="Username" bindValue="Id" placeholder="Select user"
           (search)="onItemSelect($event)">
@@ -56,7 +55,6 @@
             </div>
           </ng-template>
         </ng-select>
-        <!-- <c-row class="text-danger ms-0">Note: Once set, the Master Admin cannot be changed or removed.</c-row> -->
         <c-row class="text-danger text-center mt-2">Note: Once set, the Master Admin cannot be changed or removed. You can assign admin or sub-admins later.</c-row>
       </c-col>
     </c-row>

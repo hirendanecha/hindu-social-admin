@@ -37,6 +37,14 @@ export class MarketingComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    const getFormattedDate = (daysOffset: number = 0): string => {
+      const date = new Date();
+      date.setDate(date.getDate() + daysOffset);
+      return date.toISOString().split('T')[0];
+    };
+    this.startDate = getFormattedDate(-7),
+    this.endDate = getFormattedDate(),
+    this.getUserEmailList();
   }
 
   ngAfterViewInit(): void {
@@ -48,7 +56,7 @@ export class MarketingComponent implements OnInit {
     this.endDate = this.filterComponent.toDate;
     this.getUserEmailList()
   }
-
+  
   getUserEmailList(): void {
     this.spinner.show();
     const data = {
@@ -56,7 +64,7 @@ export class MarketingComponent implements OnInit {
       endDate: this.endDate
     }
     if (this.startDate) {
-      this.userService.getUserEmailList(data).subscribe({
+    this.userService.getUserEmailList(data).subscribe({
         next: ((res: any) => {
           this.spinner.hide();
           this.userData = res.data

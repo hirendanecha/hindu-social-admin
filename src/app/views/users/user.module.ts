@@ -5,7 +5,7 @@ import {
 } from '@angular/core';
 
 import { UserRoutingModule } from './user-routing.module';
-import { SharedModule } from 'src/app/@shared/shared.module';
+import { SharedModule } from '../../@shared/shared.module';
 import { UserComponent } from './user.component';
 import { EditUserDialogComponent } from './edit-user-dialog/edit-user-dialog.component';
 import { ViewUserPostComponent } from './view-post-list/post-list.component';

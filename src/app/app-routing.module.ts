@@ -23,7 +23,7 @@ const routes: Routes = [
           import('./views/dashboard/dashboard.module').then(
             (m) => m.DashboardModule
           ),
-          canActivate: mapToCanActivate([AuthenticationGuard])
+        canActivate: mapToCanActivate([AuthenticationGuard])
       },
       {
         path: 'newsfeed',
@@ -42,31 +42,31 @@ const routes: Routes = [
           import('./views/community/community.module').then(
             (m) => m.CommunityModule
           ),
-          canActivate: mapToCanActivate([AuthenticationGuard])
+        canActivate: mapToCanActivate([AuthenticationGuard])
       },
       {
         path: 'user',
         loadChildren: () =>
           import('./views/users/user.module').then((m) => m.UserModule),
-          canActivate: mapToCanActivate([AuthenticationGuard])
+        canActivate: mapToCanActivate([AuthenticationGuard])
       },
       {
         path: 'marketing',
         loadChildren: () =>
           import('./views/marketing-page/marketing.module').then((m) => m.MarketingModule),
-          canActivate: mapToCanActivate([AuthenticationGuard])
+        canActivate: mapToCanActivate([AuthenticationGuard])
       },
       {
         path: 'pages',
         loadChildren: () =>
           import('./views/freedom-page/freedom-page.module').then((m) => m.FreedomPageModule),
-          canActivate: mapToCanActivate([AuthenticationGuard])
+        canActivate: mapToCanActivate([AuthenticationGuard])
       },
       {
         path: 'channels',
         loadChildren: () =>
           import('./views/channels/channels.module').then((m) => m.ChannelsModule),
-          canActivate: mapToCanActivate([AuthenticationGuard])
+        canActivate: mapToCanActivate([AuthenticationGuard])
       },
       {
         path: 'report-bugs',
