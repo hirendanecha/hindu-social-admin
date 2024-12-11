@@ -1,0 +1,333 @@
+<div class="bg-light flex-row align-items-center edit-content">
+  <c-container>
+    <c-row class="justify-content-center">
+      <c-col md="6">
+        <label>Topic Name</label>
+        <input
+          cFormControl
+          name="uname"
+          [(ngModel)]="researchTopicDetails.FirstName"
+          type="text"
+        />
+      </c-col>
+      <c-col md="6">
+        <label>Description</label>
+        <input
+          cFormControl
+          name="uname"
+          [(ngModel)]="researchTopicDetails.PageDescription"
+          type="text"
+        />
+      </c-col>
+    </c-row>
+    <c-row class="justify-content-center mt-2">
+      <c-col md="6" class="d-flex flex-column">
+        <label>Logo</label>
+        <!-- <img
+          height="200"
+          width="200"
+          [src]="researchTopicDetails.ProfilePicName"
+          onerror="this.onerror=null;this.src='/assets/img/avatars/placeholder-user.png';"
+        /> -->
+        <div
+          class="d-flex c-size-icon position-relative set-select"
+          *ngIf="!selectedFile"
+        >
+          <img
+            (click)="uploadImage.click()"
+            height="100"
+            width="100"
+            class="rounded-circle cursor"
+            [src]="researchTopicDetails.ProfilePicName"
+            onerror="this.onerror=null;this.src='/assets/img/avatars/placeholder-user.png';"
+          />
+          <i class="material-symbols-outlined position-absolute"> edit </i>
+          <input
+            #uploadImage
+            class="d-none"
+            type="file"
+            id="fileInput"
+            (change)="onFileSelected($event)"
+            accept="image/*"
+          />
+        </div>
+        <ng-container *ngIf="selectedFile">
+          <div class="position-relative w-100-px h-100-px">
+            <span
+              class="material-symbols-outlined position-absolute start-100 rounded-1 text-white bg-danger cursor"
+              (click)="removePostSelectedFile()"
+            >
+              close
+            </span>
+            <img
+              loading="lazy"
+              data-src="{{ selectedFile }}"
+              height="100"
+              width="100"
+              class="rounded-circle mt-2"
+              alt="icon"
+              onerror="this.onerror=null;"
+            />
+          </div>
+        </ng-container>
+        <!-- <c-avtar></c-avtar> -->
+      </c-col>
+      <c-col md="6" class="d-flex flex-column">
+        <label>Cover Image</label>
+        <!-- <img
+          height="200"
+          width="400"
+          [src]="researchTopicDetails.CoverPicName"
+          onerror="this.onerror=null;this.src='/assets/img/avatars/placeholder-room.png';"
+        /> -->
+        <div
+          class="d-flex c-size-icon position-relative set-select"
+          *ngIf="!selectedCoveredFile"
+        >
+          <img
+            (click)="uploadCoveredImage.click()"
+            height="100"
+            width="100"
+            class="rounded-circle cursor"
+            [src]="researchTopicDetails.CoverPicName"
+            onerror="this.onerror=null;this.src='/assets/img/avatars/placeholder-user.png';"
+          />
+          <i class="material-symbols-outlined position-absolute"> edit </i>
+          <input
+            #uploadCoveredImage
+            class="d-none"
+            type="file"
+            id="fileInput"
+            (change)="onCoveredFileSelected($event)"
+            accept="image/*"
+          />
+        </div>
+        <ng-container *ngIf="selectedCoveredFile">
+          <div class="position-relative w-100-px h-100-px">
+            <span
+              class="material-symbols-outlined position-absolute start-100 rounded-1 text-white bg-danger cursor"
+              (click)="removeCoveredSelectedFile()"
+            >
+              close
+            </span>
+            <img
+              loading="lazy"
+              data-src="{{ selectedCoveredFile }}"
+              height="100"
+              width="100"
+              class="rounded-circle mt-2"
+              alt="icon"
+              onerror="this.onerror=null;"
+            />
+          </div>
+        </ng-container>
+      </c-col>
+    </c-row>
+    <!-- <c-row class="justify-content-center mt-2">
+        <c-col md="6">
+          <label>Is Approve</label>
+          <input
+            cFormControl
+            name="uname"
+            [(ngModel)]="researchTopicDetails.isApprove"
+            type="text"
+          />
+        </c-col>
+        <c-col md="6">
+          <label>Zip</label>
+          <input
+            cFormControl
+            name="uname"
+            [(ngModel)]="memberDetails.Zip"
+            type="text"
+            disabled
+          />
+        </c-col>
+      </c-row> -->
+    <h3>Member Details</h3>
+    <form (ngSubmit)="upload()" (change)="onChangeData()">
+      <!-- <c-row class="justify-content-center mt-2">
+        <c-col md="6">
+          <label>First Name</label>
+          <input
+            cFormControl
+            name="FirstName"
+            formControlName="FirstName"
+            type="text"
+          />
+        </c-col>
+        <c-col md="6">
+          <label>Last Name</label>
+          <input
+            cFormControl
+            formControlName="LastName"
+            name="LastName"
+            type="text"
+          />
+        </c-col>
+      </c-row>
+      <c-row class="justify-content-center mt-2">
+        <c-col md="6">
+          <label>Username</label>
+          <input
+            cFormControl
+            name="uname"
+            type="text"
+            formControlName="Username"
+          />
+        </c-col>
+        <c-col md="6">
+          <label>Email</label>
+          <input
+            cFormControl
+            name="email"
+            type="email"
+            [(ngModel)]="memberDetails.Email"
+            [ngModelOptions]="{ standalone: true }"
+            disabled
+          />
+          <div
+            class="srv-validation-message text-danger"
+            *ngIf="userForm.controls['Email'].invalid &&
+                  userForm.controls['Email'].errors?.['required']"
+          >
+            Email field is required.
+          </div>
+        </c-col>
+      </c-row>
+      <c-row class="justify-content-center mt-2">
+        <c-col md="6">
+          <label>Phone</label>
+          <input
+            cFormControl
+            name="mobileNo"
+            formControlName="MobileNo"
+            type="text"
+          />
+        </c-col>
+        <c-col md="6" class="d-grid">
+          <label>Country</label>
+          <select
+            id="Country"
+            required
+            name="Country"
+            class="form-control w-100"
+            cFormControl
+            [(ngModel)]="memberDetails.Country"
+            [ngModelOptions]="{ standalone: true }"
+            (change)="changeCountry($event)"
+          >
+            <option
+              [value]="item.country_code"
+              *ngFor="let item of allCountryData"
+            >
+              {{ item.country }}
+            </option>
+          </select>
+        </c-col>
+      </c-row>
+      <c-row class="justify-content-center mt-2">
+        <c-col md="6">
+          <label>Zip</label>
+          <input
+            cFormControl
+            name="zip"
+            formControlName="Zip"
+            type="text"
+            #zipCode
+          />
+          <div
+            class="srv-validation-message text-danger"
+            *ngIf="userForm.controls['Zip'].touched &&
+            userForm.controls['Zip'].errors?.['required']"
+          >
+            Zip field is required.
+          </div>
+        </c-col>
+        <c-col md="6" class="d-grid">
+          <label>State</label>
+          <input
+            cFormControl
+            name="state"
+            formControlName="State"
+            type="text"
+          />
+        </c-col>
+      </c-row> -->
+      <c-row class="justify-content-center mt-2">
+        <c-col md="12">
+          <label for="">Make Community Admin</label>
+          <ng-select
+            [items]="userList"
+            bindLabel="Username"
+            bindValue="Id"
+            [multiple]="true"
+            placeholder="Select user"
+            (search)="onItemSelect($event)"
+          >
+            <ng-template ng-option-tmp let-item="item" let-index="index">
+              <div
+                *ngIf="!memberIds.includes(item.Id)"
+                (click)="onSelectUser(item)"
+              >
+                <img
+                  height="20"
+                  width="20"
+                  [src]="item.ProfilePicName"
+                  class="me-1"
+                  onerror="this.onerror=null;this.src='/assets/img/avatars/placeholder-user.png';"
+                />
+                <span>{{ item.Username }}</span>
+              </div>
+            </ng-template>
+          </ng-select>
+        </c-col>
+      </c-row>
+      <c-row class="justify-content-center mt-4">
+        <c-col md="12">
+          <label for="">Admins</label>
+          <div class="d-flex flex-wrap">
+            <div
+              class="single-box d-flex align-items-center gap-2 px-3 py-2 w-100"
+              *ngFor="let member of groupMembers"
+            >
+              <img
+                class="w-48-px h-48-px rounded-4"
+                loading="lazy"
+                data-src="{{
+                  member?.profilePicName ||
+                    '/assets/images/avtar/placeholder-user.png'
+                }}"
+                onerror="this.onerror=null;this.src='/assets/images/avtar/placeholder-user.png'"
+                alt="avatar"
+              />
+              <div
+                class="d-flex flex-column justify-content-center align-items-start w-100"
+              >
+                <p class="mb-1">{{ member?.Username }}</p>
+                <span class="font-12-px description">{{
+                  member?.isAdmin === "Y" ? "Admin" : "Member"
+                }}</span>
+              </div>
+              <ng-container
+                *ngIf="researchTopicDetails.ID !== member.profileId"
+              >
+                <span
+                  class="material-symbols-outlined"
+                  (click)="removeMember(member.profileId)"
+                >
+                  cancel
+                </span>
+              </ng-container>
+            </div>
+          </div>
+        </c-col>
+      </c-row>
+      <c-row class="float-end mt-3">
+        <button cButton color="primary" type="submit">
+          {{ isEdit ? "Save changes" : "Edit" }}
+        </button>
+      </c-row>
+    </form>
+  </c-container>
+</div>

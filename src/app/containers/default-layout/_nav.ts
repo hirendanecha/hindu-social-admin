@@ -25,6 +25,16 @@ export const navItems: INavData[] = [
     url: '/newsfeed',
     iconComponent: { name: 'cil-notes' },
   },
+  {
+    name: 'Research',
+    url: '/research',
+    iconComponent: { name: 'cil-control' },
+  },
+  // {
+  //   name: 'Post List',
+  //   url: '/post-list',
+  //   iconComponent: { name: 'cil-basket' },
+  // },
   // {
   //   name: 'Community Post List',
   //   url: '/community-post',

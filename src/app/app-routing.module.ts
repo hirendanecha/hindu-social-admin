@@ -80,6 +80,14 @@ const routes: Routes = [
           import('./views/advertisement-page/advertisement.module').then((m) => m.AdvertisementModule),
         canActivate: mapToCanActivate([AuthenticationGuard])
       },
+      {
+        path: 'research',
+        loadChildren: () =>
+          import('./views/research-topics/research-topics.module').then(
+            (m) => m.ResearchTopicsModule
+          ),
+        canActivate: mapToCanActivate([AuthenticationGuard]),
+      },
     ],
   },
   {

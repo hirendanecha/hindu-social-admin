@@ -1,0 +1,75 @@
+// .avatar-img {
+//   width: 2.5rem;
+//   height: 2.5rem;
+// }
+.edit-content {
+  height: 100%;
+  min-height: 1050px;
+  .flag {
+    width: 3.5rem;
+    height: 3.5rem;
+  }
+  .set-select {
+    .material-symbols-outlined {
+      top: 35px;
+      left: 35px;
+      cursor: pointer;
+      display: none;
+    }
+  }
+  .set-select:hover .material-symbols-outlined {
+    color: #fff;
+    display: unset;
+  }
+  .post-message-input,
+  .comment-input {
+    font-size: 16px;
+    min-height: 45px;
+    line-break: anywhere;
+    background-color: #fff;
+    border: 1px solid #b1b7c1;
+    border-radius: 10px;
+    padding: 8px;
+
+    &[placeholder]:empty {
+      &:before {
+        content: attr(placeholder);
+        color: #697495;
+      }
+      &:focus {
+        &:before {
+          content: "";
+        }
+      }
+      &:focus-visible {
+        border: 1px solid #b1b7c1;
+      }
+    }
+
+    .user-dropdown-menu {
+      max-height: 300px;
+    }
+  }
+}
+
+.single-box{
+  max-width: 300px;
+  background: #3c4b64;
+  margin: 10px;
+  color: #fff;
+
+  .material-symbols-outlined{
+    color: #fff;
+    cursor: pointer;
+  }
+}
+
+::ng-deep .multiselect-dropdown {
+  .dropdown-btn {
+    .selected-item-container {
+      .selected-item {
+        max-width: fit-content !important;
+      }
+    }
+  }
+}

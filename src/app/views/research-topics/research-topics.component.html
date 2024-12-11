@@ -1,0 +1,100 @@
+<c-card class="app-channels mb-3">
+  <c-card-header>Research Topics</c-card-header>
+  <c-card-body>
+    <c-row class="pb-3">
+      <app-filter (searchClick)="onSearch()"></app-filter>
+      <div class="d-flex justify-content-end">
+        <button
+          class="d-flex btn btn-sm btn-success text-white"
+          (click)="createTopics()"
+        >
+          <i class="material-symbols-outlined text-white"> add </i>
+          Add Topics
+        </button>
+      </div>
+    </c-row>
+
+    <app-table>
+      <thead cTableColor="light">
+        <tr class="text-center align-middle">
+          <th class="text-center">No</th>
+          <th>Logo</th>
+          <th>Cover Image</th>
+          <th>Topic Name</th>
+          <th>Link</th>
+          <th>Username</th>
+          <th>User Profile</th>
+          <th>Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let topic of researchTopicList; let i = index">
+          <tr class="text-center align-middle" *ngIf="topic.ID">
+            <td>
+              {{ i + 1 }}
+            </td>
+            <td>
+              <img
+                class="avatar-img"
+                [src]="topic.ProfilePicName"
+                onerror="this.onerror=null;
+                this.src='assets/img/avatars/placeholder-user.png';"
+              />
+            </td>
+            <td>
+              <img
+                class="avatar-img"
+                [src]="topic.CoverPicName"
+                onerror="this.onerror=null;
+                this.src='assets/img/avatars/placeholder-user.png';"
+              />
+            </td>
+            <td>{{ topic.FirstName || topic.PageTitle }}</td>
+            <td class="c-width">
+              <a
+                [href]="'https://freedom.buzz/research/' + topic.UniqueLink"
+                target="_blank"
+                >{{ "https://freedom.buzz/research/" + topic.UniqueLink }}</a
+              >
+            </td>
+            <td class="c-width">
+              {{ topic.createUsername || topic.createUserFirstName }}
+            </td>
+            <td>
+              <img
+                class="avatar-img"
+                [src]="topic.createUserProfilePic"
+                onerror="this.onerror=null;
+                this.src='assets/img/avatars/placeholder-user.png';"
+              />
+            </td>
+            <td>
+              <button
+                class="bg-transparent border-0"
+                size="sm"
+                (click)="openCommunity(topic.UniqueLink)"
+              >
+                <i class="material-symbols-outlined"> edit </i>
+              </button>
+              <button
+                class="bg-transparent border-0"
+                size="sm"
+                (click)="deleteGroup(topic.ID)"
+              >
+                <i class="material-symbols-outlined"> delete </i>
+              </button>
+            </td>
+          </tr>
+        </ng-container>
+      </tbody>
+
+      <h6 *ngIf="!researchTopicList.length" class="text-center p-5 m-0">
+        No Topics available
+      </h6>
+    </app-table>
+    <app-pagination
+      [items]="pagination?.totalItems"
+      (onPageChange)="onPageChange($event)"
+    />
+  </c-card-body>
+</c-card>

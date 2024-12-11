@@ -17,7 +17,7 @@
             <c-col>
               <div>
                 <p class="mb-0" *ngIf="postDetails?.userName">
-                  @{{ postDetails?.userName | lowercase }}
+                  {{ '@' + postDetails?.userName | lowercase }}
                 </p>
               </div>
               <div class="mt-3">
